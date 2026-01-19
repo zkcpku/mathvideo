@@ -1,0 +1,6 @@
+[submodule "manim"]
+	path = manim
+	url = https://github.com/ManimCommunity/manim.git
+[submodule "manim_editor"]
+	path = manim_editor
+	url = https://github.com/ManimCommunity/manim_editor.git

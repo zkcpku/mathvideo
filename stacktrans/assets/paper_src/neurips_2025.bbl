@@ -1,0 +1,249 @@
+\begin{thebibliography}{49}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[GPT-4(2023)]{GPT-4}
+GPT-4.
+\newblock \url{https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo}.
+\newblock \emph{OpenAI}, 2023.
+
+\bibitem[Bi et~al.(2024)Bi, Chen, Chen, Chen, Dai, Deng, Ding, Dong, Du, Fu, et~al.]{bi2024deepseek}
+Xiao Bi, Deli Chen, Guanting Chen, Shanhuang Chen, Damai Dai, Chengqi Deng, Honghui Ding, Kai Dong, Qiushi Du, Zhe Fu, et~al.
+\newblock Deepseek llm: Scaling open-source language models with longtermism.
+\newblock \emph{arXiv preprint arXiv:2401.02954}, 2024.
+
+\bibitem[Bai et~al.(2023)Bai, Bai, Chu, Cui, Dang, Deng, Fan, Ge, Han, Huang, et~al.]{bai2023qwen}
+Jinze Bai, Shuai Bai, Yunfei Chu, Zeyu Cui, Kai Dang, Xiaodong Deng, Yang Fan, Wenbin Ge, Yu~Han, Fei Huang, et~al.
+\newblock Qwen technical report.
+\newblock \emph{arXiv preprint arXiv:2309.16609}, 2023.
+
+\bibitem[Zhang et~al.(2024{\natexlab{a}})Zhang, Zhang, Li, Li, Li, Li, Zhao, Zhu, Liu, Li, et~al.]{zhang2024deep}
+Huangzhao Zhang, Kechi Zhang, Zhuo Li, Jia Li, Jia Li, Yongmin Li, Yunfei Zhao, Yuqi Zhu, Fang Liu, Ge~Li, et~al.
+\newblock Deep learning for code generation: a survey.
+\newblock \emph{Science China Information Sciences}, 67\penalty0 (9):\penalty0 191101, 2024{\natexlab{a}}.
+
+\bibitem[Del{\'e}tang et~al.(2022)Del{\'e}tang, Ruoss, Grau-Moya, Genewein, Wenliang, Catt, Cundy, Hutter, Legg, Veness, et~al.]{deletang2022neural}
+Gr{\'e}goire Del{\'e}tang, Anian Ruoss, Jordi Grau-Moya, Tim Genewein, Li~Kevin Wenliang, Elliot Catt, Chris Cundy, Marcus Hutter, Shane Legg, Joel Veness, et~al.
+\newblock Neural networks and the chomsky hierarchy.
+\newblock \emph{arXiv preprint arXiv:2207.02098}, 2022.
+
+\bibitem[Hahn(2020)]{hahn2020theoretical}
+Michael Hahn.
+\newblock Theoretical limitations of self-attention in neural sequence models.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 8:\penalty0 156--171, 2020.
+
+\bibitem[Chomsky(1956)]{chomsky1956three}
+Noam Chomsky.
+\newblock Three models for the description of language.
+\newblock \emph{IRE Transactions on information theory}, 2\penalty0 (3):\penalty0 113--124, 1956.
+
+\bibitem[Mitchell(1980)]{mitchell1980need}
+Tom~M Mitchell.
+\newblock The need for biases in learning generalizations.
+\newblock 1980.
+
+\bibitem[Battaglia et~al.(1806)Battaglia, Hamrick, Bapst, Sanchez-Gonzalez, Zambaldi, Malinowski, Tacchetti, Raposo, Santoro, Faulkner, et~al.]{battaglia1806relational}
+Peter~W Battaglia, Jessica~B Hamrick, Victor Bapst, Alvaro Sanchez-Gonzalez, Vinicius Zambaldi, Mateusz Malinowski, Andrea Tacchetti, David Raposo, Adam Santoro, Ryan Faulkner, et~al.
+\newblock Relational inductive biases, deep learning, and graph networks. arxiv 2018.
+\newblock \emph{arXiv preprint arXiv:1806.01261}, 1806.
+
+\bibitem[Sartran et~al.(2022)Sartran, Barrett, Kuncoro, Stanojevi{\'c}, Blunsom, and Dyer]{sartran2022Transformer}
+Laurent Sartran, Samuel Barrett, Adhiguna Kuncoro, Milo{\v{s}} Stanojevi{\'c}, Phil Blunsom, and Chris Dyer.
+\newblock Transformer grammars: Augmenting transformer language models with syntactic inductive biases at scale.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 10:\penalty0 1423--1439, 2022.
+
+\bibitem[Gazdar and Pullum(1982)]{gazdar1982generalized}
+Gerald Gazdar and Geoffrey~K Pullum.
+\newblock Generalized phrase structure grammar: a theoretical synopsis.
+\newblock \emph{(No Title)}, 1982.
+
+\bibitem[Shieber(1985)]{shieber1985evidence}
+Stuart~M Shieber.
+\newblock Evidence against the context-freeness of natural language.
+\newblock In \emph{The Formal complexity of natural language}, pages 320--334. Springer, 1985.
+
+\bibitem[Savage and Computation(1998)]{savage1998exploring}
+JE~Savage and Models~Of Computation.
+\newblock Exploring the power of computing, 1998.
+
+\bibitem[Sipser(1996)]{sipser1996introduction}
+Michael Sipser.
+\newblock Introduction to the theory of computation.
+\newblock \emph{ACM Sigact News}, 27\penalty0 (1):\penalty0 27--29, 1996.
+
+\bibitem[Chomsky and Sch{\"u}tzenberger(1959)]{chomsky1959algebraic}
+Noam Chomsky and Marcel~P Sch{\"u}tzenberger.
+\newblock The algebraic theory of context-free languages.
+\newblock In \emph{Studies in Logic and the Foundations of Mathematics}, volume~26, pages 118--161. Elsevier, 1959.
+
+\bibitem[Yau(1969)]{yau1969computation}
+SS~Yau.
+\newblock Computation: Finite and infinite machines (marvin l. minsky), 1969.
+
+\bibitem[DuSell and Chiang(2024)]{dusell2024stack}
+Brian DuSell and David Chiang.
+\newblock Stack attention: Improving the ability of transformers to model hierarchical patterns.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Li et~al.(2024)Li, White, Sachan, and Cotterell]{li2024Transformer}
+Jiaoda Li, Jennifer~C White, Mrinmaya Sachan, and Ryan Cotterell.
+\newblock A transformer with stack attention.
+\newblock \emph{arXiv preprint arXiv:2405.04515}, 2024.
+
+\bibitem[Dao et~al.(2022)Dao, Fu, Ermon, Rudra, and R{\'e}]{dao2022flashattention}
+Tri Dao, Daniel~Y. Fu, Stefano Ermon, Atri Rudra, and Christopher R{\'e}.
+\newblock Flash{A}ttention: Fast and memory-efficient exact attention with {IO}-awareness.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2022.
+
+\bibitem[Dao(2024)]{dao2023flashattention2}
+Tri Dao.
+\newblock Flash{A}ttention-2: Faster attention with better parallelism and work partitioning.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2024.
+
+\bibitem[Groeneveld et~al.(2024)Groeneveld, Beltagy, Walsh, Bhagia, Kinney, Tafjord, Jha, Ivison, Magnusson, Wang, et~al.]{groeneveld2024olmo}
+Dirk Groeneveld, Iz~Beltagy, Pete Walsh, Akshita Bhagia, Rodney Kinney, Oyvind Tafjord, Ananya~Harsh Jha, Hamish Ivison, Ian Magnusson, Yizhong Wang, et~al.
+\newblock Olmo: Accelerating the science of language models.
+\newblock \emph{arXiv preprint arXiv:2402.00838}, 2024.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock \emph{Advances in neural information processing systems}, 30, 2017.
+
+\bibitem[Radford et~al.(2018)Radford, Narasimhan, Salimans, Sutskever, et~al.]{radford2018improving}
+Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever, et~al.
+\newblock Improving language understanding by generative pre-training.
+\newblock 2018.
+
+\bibitem[GPT-4o(2024)]{GPT-4o}
+GPT-4o.
+\newblock \url{https://openai.com/index/hello-gpt-4o/}.
+\newblock \emph{OpenAI}, 2024.
+
+\bibitem[Joulin and Mikolov(2015)]{joulin2015inferring}
+Armand Joulin and Tomas Mikolov.
+\newblock Inferring algorithmic patterns with stack-augmented recurrent nets.
+\newblock \emph{Advances in neural information processing systems}, 28, 2015.
+
+\bibitem[Grefenstette et~al.(2015)Grefenstette, Hermann, Suleyman, and Blunsom]{grefenstette2015learning}
+Edward Grefenstette, Karl~Moritz Hermann, Mustafa Suleyman, and Phil Blunsom.
+\newblock Learning to transduce with unbounded memory.
+\newblock \emph{Advances in neural information processing systems}, 28, 2015.
+
+\bibitem[Graves and Graves(2012)]{graves2012long}
+Alex Graves and Alex Graves.
+\newblock Long short-term memory.
+\newblock \emph{Supervised sequence labelling with recurrent neural networks}, pages 37--45, 2012.
+
+\bibitem[allenai(2024)]{OLMOcode}
+allenai.
+\newblock \url{https://github.com/allenai/OLMo}.
+\newblock \emph{Github}, 2024.
+
+\bibitem[Soldaini et~al.(2024)Soldaini, Kinney, Bhagia, Schwenk, Atkinson, Authur, Bogin, Chandu, Dumas, Elazar, et~al.]{soldaini2024dolma}
+Luca Soldaini, Rodney Kinney, Akshita Bhagia, Dustin Schwenk, David Atkinson, Russell Authur, Ben Bogin, Khyathi Chandu, Jennifer Dumas, Yanai Elazar, et~al.
+\newblock Dolma: An open corpus of three trillion tokens for language model pretraining research.
+\newblock \emph{arXiv preprint arXiv:2402.00159}, 2024.
+
+\bibitem[Allal et~al.(2025)Allal, Lozhkov, Bakouch, Bl{\'a}zquez, Penedo, Tunstall, Marafioti, Kydl{\'\i}{\v{c}}ek, Lajar{\'\i}n, Srivastav, et~al.]{allal2025smollm2}
+Loubna~Ben Allal, Anton Lozhkov, Elie Bakouch, Gabriel~Mart{\'\i}n Bl{\'a}zquez, Guilherme Penedo, Lewis Tunstall, Andr{\'e}s Marafioti, Hynek Kydl{\'\i}{\v{c}}ek, Agust{\'\i}n~Piqueres Lajar{\'\i}n, Vaibhav Srivastav, et~al.
+\newblock Smollm2: When smol goes big--data-centric training of a small language model.
+\newblock \emph{arXiv preprint arXiv:2502.02737}, 2025.
+
+\bibitem[Zhu et~al.(2024)Zhu, Huang, Huang, Zeng, Mao, Wu, Min, and Zhou]{hyperconnect}
+Defa Zhu, Hongzhi Huang, Zihao Huang, Yutao Zeng, Yunyao Mao, Banggu Wu, Qiyang Min, and Xun Zhou.
+\newblock Hyper-connections.
+\newblock \emph{CoRR}, abs/2409.19606, 2024.
+
+\bibitem[Liu et~al.(2024)Liu, Feng, Xue, Wang, Wu, Lu, Zhao, Deng, Zhang, Ruan, et~al.]{liu2024deepseek}
+Aixin Liu, Bei Feng, Bing Xue, Bingxuan Wang, Bochao Wu, Chengda Lu, Chenggang Zhao, Chengqi Deng, Chenyu Zhang, Chong Ruan, et~al.
+\newblock Deepseek-v3 technical report.
+\newblock \emph{arXiv preprint arXiv:2412.19437}, 2024.
+
+\bibitem[Touvron et~al.(2023)Touvron, Lavril, Izacard, Martinet, Lachaux, Lacroix, Rozi{\`e}re, Goyal, Hambro, Azhar, et~al.]{touvron2023llama}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timoth{\'e}e Lacroix, Baptiste Rozi{\`e}re, Naman Goyal, Eric Hambro, Faisal Azhar, et~al.
+\newblock Llama: Open and efficient foundation language models.
+\newblock \emph{arXiv preprint arXiv:2302.13971}, 2023.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.]{brown2020language}
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared~D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et~al.
+\newblock Language models are few-shot learners.
+\newblock \emph{Advances in neural information processing systems}, 33:\penalty0 1877--1901, 2020.
+
+\bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei]{kaplan2020scaling}
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
+\newblock Scaling laws for neural language models.
+\newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem[Kudo et~al.(2024)Kudo, Aoki, Kuribayashi, Sone, Taniguchi, Brassard, Sakaguchi, and Inui]{think2talk}
+Keito Kudo, Yoichi Aoki, Tatsuki Kuribayashi, Shusaku Sone, Masaya Taniguchi, Ana Brassard, Keisuke Sakaguchi, and Kentaro Inui.
+\newblock Think-to-talk or talk-to-think? when llms come up with an answer in multi-step reasoning.
+\newblock \emph{CoRR}, abs/2412.01113, 2024.
+
+\bibitem[Zellers et~al.(2019)Zellers, Holtzman, Bisk, Farhadi, and Choi]{HellaSwag}
+Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, and Yejin Choi.
+\newblock Hellaswag: Can a machine really finish your sentence?
+\newblock In \emph{{ACL} {(1)}}, pages 4791--4800. Association for Computational Linguistics, 2019.
+
+\bibitem[Clark et~al.(2018)Clark, Cowhey, Etzioni, Khot, Sabharwal, Schoenick, and Tafjord]{arc}
+Peter Clark, Isaac Cowhey, Oren Etzioni, Tushar Khot, Ashish Sabharwal, Carissa Schoenick, and Oyvind Tafjord.
+\newblock Think you have solved question answering? try arc, the {AI2} reasoning challenge.
+\newblock \emph{CoRR}, abs/1803.05457, 2018.
+
+\bibitem[Hendrycks et~al.(2021)Hendrycks, Burns, Basart, Zou, Mazeika, Song, and Steinhardt]{mmlu}
+Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt.
+\newblock Measuring massive multitask language understanding.
+\newblock In \emph{{ICLR}}. OpenReview.net, 2021.
+
+\bibitem[Bisk et~al.(2020)Bisk, Zellers, Bras, Gao, and Choi]{piqa}
+Yonatan Bisk, Rowan Zellers, Ronan~Le Bras, Jianfeng Gao, and Yejin Choi.
+\newblock {PIQA:} reasoning about physical commonsense in natural language.
+\newblock In \emph{{AAAI}}, pages 7432--7439. {AAAI} Press, 2020.
+
+\bibitem[Sakaguchi et~al.(2020)Sakaguchi, Bras, Bhagavatula, and Choi]{WinoGrande}
+Keisuke Sakaguchi, Ronan~Le Bras, Chandra Bhagavatula, and Yejin Choi.
+\newblock Winogrande: An adversarial winograd schema challenge at scale.
+\newblock In \emph{{AAAI}}, pages 8732--8740. {AAAI} Press, 2020.
+
+\bibitem[Talmor et~al.(2019)Talmor, Herzig, Lourie, and Berant]{CommonsenseQA}
+Alon Talmor, Jonathan Herzig, Nicholas Lourie, and Jonathan Berant.
+\newblock Commonsenseqa: {A} question answering challenge targeting commonsense knowledge.
+\newblock In \emph{{NAACL-HLT} {(1)}}, pages 4149--4158. Association for Computational Linguistics, 2019.
+
+\bibitem[Joshi et~al.(2017)Joshi, Choi, Weld, and Zettlemoyer]{TriviaQA}
+Mandar Joshi, Eunsol Choi, Daniel~S. Weld, and Luke Zettlemoyer.
+\newblock Triviaqa: {A} large scale distantly supervised challenge dataset for reading comprehension.
+\newblock In \emph{{ACL} {(1)}}, pages 1601--1611. Association for Computational Linguistics, 2017.
+
+\bibitem[Mihaylov et~al.(2018)Mihaylov, Clark, Khot, and Sabharwal]{OpenbookQA}
+Todor Mihaylov, Peter Clark, Tushar Khot, and Ashish Sabharwal.
+\newblock Can a suit of armor conduct electricity? {A} new dataset for open book question answering.
+\newblock In \emph{{EMNLP}}, pages 2381--2391. Association for Computational Linguistics, 2018.
+
+\bibitem[Cobbe et~al.(2021)Cobbe, Kosaraju, Bavarian, Chen, Jun, Kaiser, Plappert, Tworek, Hilton, Nakano, Hesse, and Schulman]{gsm8k}
+Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser, Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, Christopher Hesse, and John Schulman.
+\newblock Training verifiers to solve math word problems.
+\newblock \emph{CoRR}, abs/2110.14168, 2021.
+
+\bibitem[Allal et~al.(2024)Allal, Lozhkov, Bakouch, von Werra, and Wolf]{allal2024SmolLM}
+Loubna~Ben Allal, Anton Lozhkov, Elie Bakouch, Leandro von Werra, and Thomas Wolf.
+\newblock Smollm - blazingly fast and remarkably powerful, 2024.
+
+\bibitem[Yang et~al.(2024)Yang, Yang, Zhang, Hui, Zheng, Yu, Li, Liu, Huang, Wei, et~al.]{yang2024qwen2}
+An~Yang, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo~Zheng, Bowen Yu, Chengyuan Li, Dayiheng Liu, Fei Huang, Haoran Wei, et~al.
+\newblock Qwen2. 5 technical report.
+\newblock \emph{arXiv preprint arXiv:2412.15115}, 2024.
+
+\bibitem[Zhang et~al.(2024{\natexlab{b}})Zhang, Zeng, Wang, and Lu]{zhang2024tinyllama}
+Peiyuan Zhang, Guangtao Zeng, Tianduo Wang, and Wei Lu.
+\newblock Tinyllama: An open-source small language model, 2024{\natexlab{b}}.
+
+\bibitem[huggingface(2024)]{lightevalcode}
+huggingface.
+\newblock \url{https://github.com/huggingface/lighteval}.
+\newblock \emph{Github}, 2024.
+
+\end{thebibliography}

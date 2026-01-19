@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Loss_Function",
+        "type": "presentation.normal",
+        "video": "DerivationScene_0000_Loss_Function.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "60",
+        "duration": "4.000000",
+        "avg_frame_rate": "15/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "Stack_State",
+        "type": "presentation.normal",
+        "video": "DerivationScene_0001_Stack_State.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "45",
+        "duration": "3.000000",
+        "avg_frame_rate": "15/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "Stack_Update",
+        "type": "presentation.normal",
+        "video": "DerivationScene_0002_Stack_Update.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "99",
+        "duration": "6.599349",
+        "avg_frame_rate": "760320/50683",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    }
+]

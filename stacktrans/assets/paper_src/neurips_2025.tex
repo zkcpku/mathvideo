@@ -1,0 +1,995 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2025
+
+\PassOptionsToPackage{authoryear,square,semicolon}{natbib}
+
+% \bibliographystyle{unsrtnat}
+% \bibliography{reference}
+
+% ready for submission
+% \usepackage{neurips_2025}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+\usepackage[preprint]{neurips_2025}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2025}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2025}
+
+\newcommand{\lijia}[1]{\textcolor{blue}{lijiaa: #1}}
+\newcommand{\zkc}[1]{\textcolor{red}{zkc: #1}}
+\newcommand{\zhz}[1]{\textcolor{green}{zhz: #1}}
+
+%\renewcommand{\paragraph}[1]{\noindent {\bf #1{\hspace{1em}}}}
+\makeatletter
+\providecommand{\paragraph}{}
+\renewcommand{\paragraph}[1]{%
+  \@startsection{paragraph}{4}{\z@}%
+                {0.9ex \@plus 0.5ex \@minus 0.2ex}% 上间距
+                {-1em}% 标题缩进
+                {\normalsize\bfseries}% 标题字体
+  {#1}
+}
+\makeatother
+%\BeforeBeginEnvironment{equation}{\vspace{-7pt}}
+%\AfterEndEnvironment{equation}{\vspace{-5pt}}
+
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+\def\aka{\emph{a.k.a}\onedot} \def\Aka{\emph{A.k.a}\onedot}
+\def\eg{\emph{e.g}\onedot} \def\Eg{\emph{E.g}\onedot}
+\def\ie{\emph{i.e}\onedot} \def\Ie{\emph{I.e}\onedot}
+\def\cf{\emph{c.f}\onedot} \def\Cf{\emph{C.f}\onedot}
+\def\etc{\emph{etc}\onedot} \def\vs{\emph{vs}\onedot} \def\Vs{\emph{Vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\def\etal{\emph{et al}\onedot}
+\DeclareRobustCommand{\method}{{\sc StackTrans}\xspace}
+\DeclareRobustCommand{\textbfmethod}{{\sc \textbf{StackTrans}}\xspace}
+\makeatother
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsmath}
+\usepackage{pifont}
+
+
+\usepackage{url}
+\usepackage{graphicx}  %Required
+\usepackage{amsfonts}
+\usepackage{CJK}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{float}
+\usepackage{xcolor,colortbl}
+\usepackage{adjustbox}
+\usepackage{subfigure}
+\usepackage{booktabs,multirow}
+\usepackage{bigstrut}
+\usepackage{paralist}
+\usepackage{bbm}
+\usepackage{makecell}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype} 
+\usepackage{epsfig}
+\usepackage{diagbox}
+\usepackage{framed}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{mdwlist}
+\usepackage{xspace,mfirstuc,tabulary}
+% \usepackage{tcolorbox}
+\usepackage{algorithm}
+\usepackage{placeins}
+\usepackage{algpseudocode}
+\usepackage{microtype}
+\usepackage{wrapfig}
+
+% \usepackage{graphicx}
+% \usepackage{subcaption}  % 必须加载
+\usepackage{graphicx}
+\usepackage{subcaption} % 必须加载这个包
+\usepackage[para]{threeparttable}
+
+% \title{\textbfmethod: Enhancing Large Language Models via Stack-Based Mechanisms}
+\title{\textbfmethod: From Large Language Model to Large Pushdown Automata Model}
+
+
+\author{\textbf{Kechi Zhang}$^{1,2}$,  \textbf{Ge Li}$^{1,2}$\footnotemark[1], \textbf{Jia Li}$^{1,2}$, \\ \textbf{Huangzhao Zhang}, \textbf{Yihong Dong}$^{1,2}$, \textbf{Jia Li}$^{3}$, \textbf{Jingjing Xu}$^{4}$, \\ \textbf{Zhi Jin}$^{1,2}$\footnotemark[1] \\
+$^1$Key Lab of High Confidence Software Technology (PKU), Ministry of Education \\
+$^2$School of Computer Science, Peking University, China \\
+$^3$College of AI, Tsinghua University \\
+$^4$ByteDance \\
+\texttt{\{zhangkechi,lige,zhijin\}@pku.edu.cn}}
+
+
+\begin{document}
+\footnotetext[1]{Ge Li and Zhi Jin are the corresponding authors.}
+
+\maketitle
+
+
+\begin{abstract}
+
+The Transformer architecture has emerged as a landmark advancement within the broad field of artificial intelligence, effectively catalyzing the advent of large language models (LLMs).
+However, despite its remarkable capabilities and the substantial progress it has facilitated, the Transformer architecture still has some limitations.
+One such intrinsic limitation is its inability to effectively capture the Chomsky hierarchy, such as regular expressions or deterministic context-free grammars.
+Drawing inspiration from pushdown automata, which efficiently resolve deterministic context-free grammars using stacks, we propose \method to address the aforementioned issue within LLMs.
+Unlike previous approaches that modify the attention computation, \method explicitly incorporates hidden state stacks between Transformer layers. This design maintains compatibility with existing frameworks like flash-attention.  
+Specifically, our design features stack operations -- such as pushing and popping hidden states -- that are differentiable and can be learned in an end-to-end manner.
+Our comprehensive evaluation spans benchmarks for both Chomsky hierarchies and large-scale natural languages. 
+Across these diverse tasks, \method consistently outperforms standard Transformer models and other baselines. 
+We have successfully scaled \method up from 360M to 7B parameters. In particular, our from-scratch pretrained model \method-360M outperforms several larger open-source LLMs with 2–3$\times$ more parameters, showcasing its superior efficiency and reasoning capability. 
+
+\end{abstract}
+
+
+
+
+\section{Introduction}
+\label{sec:intro}
+
+
+In the era of large language models (LLMs) \citep{GPT-4}, the Transformer architecture has emerged as the nearly universal backbone, achieving remarkable success across various domains and beyond \citep{bi2024deepseek,bai2023qwen, zhang2024deep}.
+However, recent empirical studies \citep{deletang2022neural, hahn2020theoretical} have demonstrated that Transformers struggle with tasks involving Chomsky hierarchies \citep{chomsky1956three}, such as regular expressions (REs) and deterministic context-free grammars (DCFs). 
+For example, in an RE matching task, each training example consists of a string within a specified length range, paired with a matching-or-not label. 
+While Transformers can perform well within the length boundaries of the training set, they often fail to maintain consistent performance when evaluated on input strings that are longer or shorter than those in the training data. 
+One theoretical explanation is that standard Transformers lack inductive biases \citep{mitchell1980need, battaglia1806relational, sartran2022Transformer}.
+Without inherent assumptions to guide learning, Transformers struggle to effectively capture the underlying grammar of the Chomsky hierarchy in the training set. 
+Consequently, they cannot generalize beyond the training data and perform poorly on inputs of lengths that differ from those seen during training.
+On the other hand, natural languages are generally considered to belong to a class of languages that extends beyond DCF \citep{gazdar1982generalized, chomsky1956three, shieber1985evidence}.
+This inherent limitation of Transformers may possibly hinder their application in real-world natural language modeling. Such deficiencies may also have the risk to block LLMs to achieve more advanced forms of intelligence.
+
+
+In the realm of formal language theory and computational linguistics \citep{chomsky1956three, savage1998exploring, sipser1996introduction}, it is widely recognized that automata augmented with stacks correspond to different levels of the Chomsky hierarchy grammars \footnote{The Chomsky grammars of type 3 (REs) and type 2 (DCFs) can be recognized by pushdown automata (automata equipped with a stack) \citep{chomsky1956three, chomsky1959algebraic}. With proper enhancement, pushdown automata can even resolve type 1 (context-sensitive, CS) and type 0 (unrestricted) grammars -- 2-stack automata (automata equipped with two independent stacks) are equivalent to Turing machines, and can recognize type 0 grammars \citep{yau1969computation}.}. 
+Given the success of stack-equipped automata in handling rather complex grammars, it is a natural progression to incorporate the data structure of stack into the Transformer architecture.
+Recently, researchers have proposed the stacked attention mechanism \citep{dusell2024stack, li2024Transformer} and have examined its viability upon multiple relatively small benchmarks.
+
+
+
+\begin{figure}[t]
+    \centering
+    \subfigure[Architecture]{
+        \includegraphics[width=0.2\linewidth]{intro1.pdf}
+        \label{fig:method:a}
+    }
+    \subfigure[Formal language evaluation]{
+        \includegraphics[width=0.3\linewidth]{intro2.pdf}
+        \label{fig:method:b}
+    }
+    \subfigure[Natural language evaluation]{
+        \includegraphics[width=0.35\linewidth]{intro3_circle.pdf}
+        \label{fig:method:c}
+    }
+    \caption{\method architecture and its overall performance (best view in color).
+    (a) The hidden state stack can be integrated between Transformer layers to model the Chomsky hierarchy.
+    (b) Radar chart for formal language tasks, where task difficulty is indicated by color (from \textcolor[rgb]{0.82,0.1,0.26}{red} to \textcolor[rgb]{0.4,0.6,0.8}{blue} to \textcolor[rgb]{0,0.42,0.24}{green}, with \textcolor[rgb]{0,0.42,0.24}{green} representing the most difficult tasks).
+    (c) Results on natural language tasks, where the $x$-axis represents the pretraining corpus size, the $y$-axis represents the average performance across multiple benchmarks (see Table \ref{tab:main-eval}), and the dot size indicates the model size.}
+    \label{fig:intro}
+    \vspace{-9pt}
+\end{figure}
+
+
+Drawing inspiration from pushdown automata and prior research, we introduce hidden state stacks into the Transformer architecture, proposing a novel method, \method.
+Unlike the stacked attention mechanisms \citep{dusell2024stack, li2024Transformer}, which replace the standard attention, \method incorporates differentiable stacks between the Transformer layers, meanwhile preserving the integrity of the Transformer layers (Figure \ref{fig:method:a}).
+This integration allows us to embed the assumptions of the Chomsky hierarchy into the model, enabling \method to inherently model and learn REs and DCFs.
+Moreover, this design maintains compatibility with existing frameworks like flash-attention \citep{dao2022flashattention,dao2023flashattention2}, enabling seamless integration into efficient LLM training pipelines.
+Specifically, the stack stores hidden states generated by the preceding layer and updates through operations such as push and pop at each decoding time step.
+To enable end-to-end training of \method, we design soft stack operations, thereby making the hidden state stack differentiable.
+\method also adopts a multi-head stack to improve its representation capability.
+Additionally, we find that the standard stack reading operation (which only returns the top element in the stack) may cause unstable training.
+Therefore, we propose the global reading operation through a learnable query-over-stack attention, stabilizing the training process and enriching the expressiveness of \method.
+
+ 
+We conduct comprehensive experiments on multiple benchmarks spanning both formal languages \citep{deletang2022neural} and natural languages \citep{groeneveld2024olmo}.
+Specifically, in RE and DCF tasks, \method outperforms the standard Transformer by at least 30\%, achieving nearly 100\% test accuracy in most scenarios, as shown in Figure \ref{fig:method:b}.
+Surprisingly, during natural language evaluation, \method also demonstrates substantial improvements on tasks such as common sense reasoning and question answering. 
+Furthermore, we have successfully scaled \method up from 360M to 7B parameters. 
+In particular, our open-sourced \method-360M, which is pretrained on a corpus of approximately 1T tokens, performs better than or comparably to state-of-the-art LLMs with 2–3$\times$ more parameters, as shown in Figure \ref{fig:method:c}.
+
+
+
+The contribution of this paper can be summarized as below:
+\label{sec:introcontribution}
+\begin{itemize}[leftmargin=10pt,
+                itemsep=5pt,
+                parsep=0pt
+                ]
+    \item[\ding{182}] We introduce \method, which incorporates hidden state stacks between Transformer layers. This integration enables \method to inherently learn grammars from the Chomsky hierarchy, including REs and DCFs.
+    \item[\ding{183}] We design the hidden state stack to be differentiable, which employs soft push, pop, and no-op operations, a multi-head stack mechanism, and a global stack reading operation. These innovations ensure stable and end-to-end training of \method.
+    \item[\ding{184}] We conduct extensive experiments on multiple formal language benchmarks, demonstrating \method's effectiveness in learning Chomsky hierarchy grammars such as REs and DCFs. Furthermore, we have successfully scaled \method up from 360M to 7B parameters for general language modeling. Evaluations on large-scale natural language benchmarks show that \method-360M outperforms baselines with even $2-3\times$ more parameters.
+\end{itemize}
+
+\section{Background}
+
+
+The foundational success of LLMs can be attributed to the development of the Transformer architecture \citep{vaswani2017attention} and its numerous variations, which serve as the backbone for LLMs \citep{radford2018improving, GPT-4, GPT-4o}. 
+Despite their widespread adoption, the Transformer architecture has inherent expressivity limitations \citep{hahn2020theoretical}.
+Recent studies have shown that standard Transformers struggle with recursive and hierarchical patterns across both synthetic and real-world tasks \citep{joulin2015inferring, grefenstette2015learning,sartran2022Transformer}, and need to equip neural networks with external data structures. These limitations pose a potential risk to the natural language modeling capabilities of Transformers, as suggested by discussions surrounding the classification of natural languages within the Chomsky hierarchy \citep{gazdar1982generalized, chomsky1956three, shieber1985evidence}.
+For more detailed related work, please refer to \S\ref{appendix:related}.
+Based on the same principle, \method introduces differentiable hidden state stacks in a modular and scalable manner. 
+Without altering the attention mechanism, \method integrates stack operations into layer-wise hidden state updates.
+This design maintains compatibility with existing frameworks like flash-attention \citep{dao2022flashattention,dao2023flashattention2} and supports architectures ranging from 0.36B to 7B parameters. 
+By learning stack operations explicitly, \method is capable of addressing broader linguistic and algorithmic challenges.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{stack.pdf}
+    \caption{Illustration of the multi-head differentiable stack. Our designed differentiable stack includes the updating mechanism based on three action probabilities (\ie, push, pop, and no-op), the stack mask maintenance, as well as a gated global reading mechanism. To improve both memory efficiency and representational flexibility, we also add multi-head and low-rank mechanisms.}
+    \label{fig:method}
+    \vspace{-9pt}
+\end{figure}
+
+\section{Method}
+
+
+As introduced previously, the standard Transformer architecture \citep{vaswani2017attention} struggles to learn the Chomsky hierarchy due to its lack of inductive biases.
+To address this limitation, we propose \method, which incorporates hidden state stacks into the Transformer architecture. 
+These stacks introduce the assumptions of the Chomsky hierarchy, enhancing the model's ability to capture hierarchical structures.
+In \method, the hidden state stacks augment the information flow by routing token-level hidden states through learnable stack operations, such as stack updating and reading. 
+Specifically, the stacks are integrated between standard Transformer layers, where they store hidden states and perform updates and readings via soft operations (see \S\ref{sec:methodStack} for details).
+To further improve the expressiveness of \method, we introduce a multi-head stack mechanism (please refer to \S\ref{sec:multihead}). This design enhances the ability of \method to capture diverse patterns with low-rank representations. 
+Finally, to ensure robust training and avoid issues such as stack operation collapsing, we introduce stack regularization techniques. We also implement stack truncation to facilitate batching and parallel training (\S\ref{sec:trainingStack}). 
+These innovations and designs collectively enhance the effectiveness and stability of \method in learning Chomsky hierarchy grammars.
+
+
+
+
+\subsection{Hidden State Stack}
+\label{sec:methodStack}
+
+In computational linguistics, it is well established that the Chomsky hierarchy grammars can be resolved by different classes of automata, with pushdown automata being the minimal computational model for DCFs \citep{chomsky1959algebraic}. Drawing inspiration from this, we incorporate stacks into the Transformer architecture to address its limitations in learning the Chomsky hierarchy.
+Recall that a standard stack is a last-in-first-out storage structure that allows the top element to be read or updated (\ie, operations like peek, push, and pop).
+Given a hidden state sequence $h_1,\cdots,h_l$ (for now, we do not consider any computational dependencies among $h_t$'s), at each time-step $t$, \method is designed to either push the current hidden state $h_t$ into the stack or pop the top element from the stack, and then peek the current top element (at this stage, we ignore how these operations are determined or executed by the model).
+This procedure results in a new stack-operated sequence, which is a permutation of $h_1,\cdots,h_l$.
+Ideally, if the stack operations are correct, it is highly plausible that the model can effectively learn the target Chomsky hierarchy grammar.
+
+Since the hidden state stack will be incorporated into \method, it must be differentiable to enable end-to-end training. 
+However, standard stack operations such as push and pop are discrete, which disrupts gradient back-propagation and hinders the training process.
+To address this challenge, we introduce a soft operation mechanism, following earlier explorations \citep{grefenstette2015learning, joulin2015inferring}.
+In this mechanism, the results of the stack operations are continuously interpolated based on some trainable parameters.
+This design not only makes the operations differentiable but also allows the model to learn the stack operations through these trainable parameters.
+
+
+\paragraph{Soft update}
+The stack at time-step $t$ can be formalized as a list of vectors, where $\text{St}_t[i]$ refers to the $i$-th element from top to bottom in the current stack $\text{St}_t$.
+We define three candidate operations for \method determined by the current hidden state $h_t$ (here, $\text{St}_t[i]$ and $h_t$ both belong to $\mathbb{R}^d$, meaning they share the same width $d$):
+\ding{182} ``push'' shifts every element down by one position and puts $h_t$ at the top;
+\ding{183} ``pop'' removes the top element and moves every remaining element up by one position;
+and \ding{184} ``no-op'' does not alter $\text{St}_t$ at all.
+Instead of discretely selecting one of these operations, the soft update mechanism computes a distribution over the candidate operations. This is achieved through a learned linear projection $A\in\mathbb{R}^{3\times d}$ followed by a softmax function:
+
+
+\vspace{-10pt}
+\begin{equation}
+    a_t = [a_t^{\text{push}};a_t^{\text{pop}};a_t^{\text{noop}}] = \text{Softmax}(A h_t)
+    \label{eq:action_scores}
+\end{equation}
+
+
+\noindent where each scalar in $a_t$ represents the probability corresponding to one operation. We then combine the results of each operation based on their respective probabilities to update the stack as follows:
+
+
+\vspace{-10pt}
+\begin{equation}
+\text{St}_{t+1}[i] = \left\{
+\begin{array}{lclcll} 
+a_t^{\text{push}} \cdot h_t &+& a_t^{\text{pop}} \cdot \text{St}_{t}[1] &+& a_t^{\text{noop}} \cdot \text{St}_{t}[0], & \text{if } i = 0 \\[3pt]
+a_t^{\text{push}} \cdot \text{St}_{t}[i-1] &+& a_t^{\text{pop}} \cdot \vec{0} &+& a_t^{\text{noop}} \cdot \text{St}_{t}[i], & \text{if } i = S-1  \\[3pt]
+a_t^{\text{push}} \cdot \text{St}_{t}[i-1] &+& a_t^{\text{pop}} \cdot \text{St}_{t}[i+1] &+& a_t^{\text{noop}} \cdot \text{St}_{t}[i], & \text{otherwise} \\[3pt]
+\end{array}\right.
+\label{eq:stack_update}
+\end{equation}
+
+\noindent where $S$ denotes the size of the stack.
+The first and the second rows in Equation \ref{eq:stack_update} correspond to the top element ($\text{St}_{t+1}[0]$) and the bottom element ($\text{St}_{t+1}[S-1]$) respectively, while the last row pertains to the intermediate elements.
+It is important to note that a zero vector is always maintained at the bottom of the stack, as indicated in the “pop” term of the second row in Equation \ref{eq:stack_update}.
+
+
+The soft update mechanism is fully differentiable, enabling end-to-end parameter tuning.
+Meanwhile, the dynamic of the information flow aligns with that of a standard stack.
+When $a_t^{\text{push}}$ dominates in $a_t$, all elements in the stack tend to shift downward as more information from $h_t$ flows into the top element;
+conversely, when the pop operation dominates, the elements in the stack shift upward as the information of the top element is mostly removed.
+
+
+\paragraph{Stack mask}
+To implement our proposed hidden state stack using a list, the overall available stack size $S$ must be sufficiently large.
+Assuming $S$ is large enough, the tail of the stack is always padded with zero vectors.
+This padding ensures that stack operations comply with logical constraints and prevents invalid behaviors.
+However, this process is inherently discrete. To address this, we propose maintaining a differentiable stack mask for \method.
+Specifically, the $i$-th element in the mask $\text{M}_t\in\mathbb{R}^S$ suggests how likely the corresponding element in the stack is active.
+The mask is updated with dynamics similar to those described in Equation \ref{eq:stack_update}:
+
+
+\vspace{-10pt}
+\begin{equation}
+\text{M}_{t+1}[i] = \left\{
+\begin{array}{lclcll}
+a_t^{\text{push}}\cdot 1 &+& a_t^{\text{pop}} \cdot \text{M}_{t}[1] &+& a_t^{\text{noop}} \cdot \text{M}_{t}[0], & \text{if } i = 0 \\[3pt]
+a_t^{\text{push}} \cdot \text{M}_{t}[i-1] &+& a_t^{\text{pop}} \cdot 0 &+& a_t^{\text{noop}} \cdot \text{M}_{t}[i], & \text{if } i =  S-1 \\[3pt]
+a_t^{\text{push}} \cdot \text{M}_{t}[i-1] &+& a_t^{\text{pop}} \cdot \text{M}_{t}[i+1] &+& a_t^{\text{noop}} \cdot \text{M}_{t}[i], & \text{otherwise} \\[3pt]
+% 0, & \text{if } i = S-1,
+\end{array}\right.
+\label{eq:mask_update}
+\end{equation}
+
+\noindent $\text{M}_t$ serves as an activation controller in \method -- if $a_t^{\text{push}}$ dominates, one more stack element is further activated, otherwise $a_t^{\text{pop}}$ dominates in $a_t$, the last activated element is more likely to be deactivated.
+When accessing the stack, we pad the stack by element-wise production of $\text{St}_t$ and $\text{M}_t$.
+
+
+\paragraph{Global read}
+\label{sec:globalreading}
+The standard stack simply peeks and returns the top element during reading.
+Although peeking is quite straightforward, we notice that it may cause unstable training during our initial experiments. 
+Furthermore, limiting access to only the top element restricts gradient flow, reducing learning efficiency and leading to unstable training dynamics. A detailed discussion is provided in \S\ref{sec:randomaccess}.
+Therefore, we propose the global read mechanism, by collecting information over the stack.
+Global read is achieved through a learnable query-over-stack attention:
+
+
+\vspace{-10pt}
+\begin{equation}
+    \text{R}_t=\text{Softmax}(W_g\cdot(\text{St}_t\otimes\text{M}_t))\cdot\text{St}_t
+    \label{eq:gate_attention}
+\end{equation}
+
+
+\noindent where $\otimes$ refers to element-wise production and $W_g\in\mathbb{R}^{S}$ is a trainable query vector.
+The $\text{Softmax}$ term computes the attention score, and the content read from the stack is the weighted sum of all stack elements, where each element is weighted by its corresponding attention score.
+The final output is a residual-like connection $h'_t = g_{h} \cdot h_t+ \text{R}_t$, where $g_{h}$ is a trainable parameter.
+
+\subsection{Multi-Head Low-Rank Stack}
+\label{sec:multihead}
+
+In the Transformer architecture, the multi-head attention mechanism \citep{vaswani2017attention} processes multiple attention patterns in parallel across different representation subspaces.
+The design enables the model to capture diverse relationships within the input sequence.
+Following a similar design philosophy, we propose the multi-head low-rank stack.
+Specifically, we down-project the hidden state $h_t\in\mathbb{R}^d$ and split it into subspaces ($\mathbb{R}^{d_s}$) as:
+$\left[ h^{(1)}_t, h^{(2)}_t, \ldots, h^{(H)}_t \right] = \text{Reshape}(W_{\mathrm{down}} \cdot h_t)$,
+where $H$ denotes the number of stack heads and $W_\text{down}\in\mathbb{R}^{(H\cdot d_s)\times d}$ is the down-projection matrix.
+Each head corresponds to an independent stack as introduced in \S\ref{sec:methodStack}. 
+
+Given the down-projected hidden state $h_t^{(i)}\in\mathbb{R}^{d_s}$ for the $i$-th head, the stack element $\text{St}_t^{(i)}$ and the mask $\text{M}_t^{(i)}$ (both in $\mathbb{R}^{S\times d_s}$) along with the final read-out $\text{R}_t^{(i)}$ are computed independently for each head following Equations \ref{eq:action_scores} - \ref{eq:gate_attention}.
+After performing soft updates and global reads for all $H$ heads, we concatenate their outputs to obtain the final result:
+$\text{h}^{'}_t= g_{h} \cdot h_t + W_{\mathrm{up}} \cdot \mathrm{Concat}\left( \text{R}^{(1)}_t;\cdots;\text{R}^{(H)}_t \right)$,
+where $W_\text{up}\in\mathbb{R}^{d\times(H\cdot d_s)}$ is the up-projection matrix.
+This multi-head mechanism allows the model to organize stack operations into different patterns in parallel, thereby capturing diverse relationships and dependencies more effectively.
+Empirically, we find that a small $H$ (\eg, 4 or 8) is sufficient to achieve notable performance.
+For more details on ablation studies and discussions, please refer to \S\ref{sec:analysis}.
+On the other hand, the overall computational cost with the low-rank design is much smaller than counterpart of a single-head stack with full dimensions due to the reduced dimension of low-rank adaptation in each sub-stack. Refer to \S\ref{sec:analysis} for ablations.
+
+
+\subsection{Key Implementation \& Training Know-Hows}
+\label{sec:trainingStack}
+
+The modular stack of \method enables it to augment the Transformer architecture without altering the Transformer layers themselves.
+There are some key implementation and training insights.
+
+\paragraph{Stack Overflow}
+In \S\ref{sec:methodStack} and \S\ref{sec:multihead}, we assume that the stack size $S$ is sufficiently large or even infinite.
+However, due to limitations in computational power and storage resources, $S$ is typically relatively small, making overflow inevitable.
+In our implementation, we address this by truncating the stack and setting all overflow elements to zero, that is, $\text{St}_t[i]=\vec0$ if $i\ge S$.
+This truncation can be seen as a form of ``forgetting'', where the information carried by the overflow elements is discarded.
+
+
+\paragraph{Training parallelism}
+\label{sec:trainingparall}
+Ideally, the stack is supposed to process hidden states according to their temporal or layer dependencies, \ie, it should prioritize hidden states generated from earlier tokens or shallower layers.
+One feasible sequence fed into the hidden state stack would be $\left[h_{{t_0},0},h_{{t_0},1},\cdots,h_{{t_0},L},h_{{t_1},0},\cdots\right]$, where $h_{t,i}\in\mathbb{R}^d$ denotes the hidden state of the $i$-th Transformer layer at token $t$, and $L$ represents the total number of layers.
+Although such a behavioral pattern is clearly beneficial for learning stack operations, the temporal dependencies conflict with the parallel training of the Transformer layers.
+To facilitate training parallelism, we implement \method by breaking these temporal dependencies.
+Specifically, \method learns stack operations based on the hidden state sequence at token $t_i$ from layer $0$ to $L$ ($\left[h_{{t_i},0},\cdots,h_{{t_i},L}\right]$), allowing all tokens to be trained in parallel. 
+We provide detailed discussion in \S\ref{sec:approximation}.
+
+\paragraph{Stack regularization}
+During training, \method optimizes the standard autoregressive language modeling loss ($\mathcal{L}_\text{LM}$) over the token sequence. 
+To prevent the operation probabilities $a_t$ from collapsing into uniform, we introduce an entropy-based regularization term, defined as $\mathcal{L}_{\text{St}} = \sum_t \mathcal{H}(a_t)$, where $\mathcal{H}(\cdot)$ calculates the entropy.
+The overall loss function combines the language modeling loss and the stack regularization term, $\mathcal{L}=\mathcal{L}_\text{LM}+\lambda\cdot\mathcal{L}_{\text{St}}$, where $\lambda$ is a hyperparameter.
+
+\begin{table}[t]
+\centering
+\caption{Test accuracy on formal language tasks.}
+\label{tab:formallang_results}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+Task & LSTM & StackRNN & StackAttn\tnote{*} & Transformer & \method \\
+\midrule
+\multicolumn{3}{l}{\textit{Regular (RE) Tasks}} \\
+Even Pairs  & 1.00 & 1.00 & - & 0.49 & 1.00  \\
+Parity Check  & 1.00 & 1.00 & - & 0.50 & 1.00  \\
+Cycle Navigation & 0.89 & 1.00 & - & 0.20 & 1.00 \\
+\midrule
+\multicolumn{3}{l}{\textit{Deterministic Context-Free (DCF) Tasks}} \\
+Stack Manipulation & 0.66 & 0.85 & 0.93 & 0.53 & 0.92  \\
+Reverse String  & 0.71 & 0.80 & 1.00 & 0.55 & 1.00  \\
+Modular Arithmetic  & 0.43 & 0.42 & 0.30 & 0.30 & 0.60  \\
+\midrule
+\multicolumn{3}{l}{\textit{Context-Sensitive (CS) Tasks}} \\
+Missing Duplicate  & 0.68 & 0.67 & - & 0.53  & 1.00  \\
+Odds First & 0.60 & 0.55 & - & 0.51 & 0.53  \\
+Binary Addition  & 0.56 & 0.51 & - & 0.48 & 0.48  \\
+Binary Multiplication  & 0.56 & 0.53 & - & 0.50 & 0.48  \\
+Compute Sqrt & 0.64 & 0.63 & - & 0.51 & 0.57  \\
+Bucket Sort & 0.79 & 0.75 & - & 0.79 & 0.89  \\
+\bottomrule
+\end{tabular}
+
+\begin{tablenotes}\footnotesize
+\begin{minipage}[t]{\textwidth}
+    \item [*] Results listed here are reported by \cite{dusell2024stack}.
+\end{minipage}
+\end{tablenotes}
+\end{threeparttable}
+\vspace{-12pt}
+\end{table}
+
+\section{Evaluation against Formal Languages}
+Understanding formal languages is fundamental for modeling many aspects of real-world natural language processing tasks. To highlight the motivation behind our stack-enhanced mechanism, we first evaluate \method on formal language modeling tasks inspired by the Chomsky hierarchy.
+
+
+\paragraph{Experimental Setup}  
+\label{sec:formalsetup}
+In this section, we evaluate \method on three groups formal language modeling tasks aligned with the Chomsky hierarchy \citep{deletang2022neural}. 
+These tasks assess a model's ability to learn underlying compositional rules of formal languages and generalize to input lengths beyond those seen during training. Please refer to \S\ref{appendix:formal} for details.
+Following prior work \citep{deletang2022neural}, we implement \method with relatively limited parameters. Concretely, we use five Transformer layers with $d=64$. $H$ is set to 4 and $d_s$ is set to 8.
+We compare \method to some representative baselines, including the standard Transformer \citep{vaswani2017attention}, LSTM \citep{graves2012long}, StackRNN \citep{joulin2015inferring}) and StackAttn \citep{li2024Transformer}, maintaining identical experimental settings for all models.
+
+
+
+\paragraph{Evaluation Results} 
+Table \ref{tab:formallang_results} shows that \method consistently outperforms the standard Transformer, particularly on RE and DCF tasks.
+For RE tasks, most evaluated models attain near-perfect accuracy. However, Transformers tend to falter in the absence of explicit inductive biases.
+This further underscores the effectiveness of the hidden state mechanism introduced in \method.
+When compared with the state-of-the-art stack-augmented approaches, such as StackRNN and StackAttn, \method either outperforms them or is at least on par with them in nearly all tasks.
+
+The hidden state stack mechanism likely endows \method with characteristics akin to pushdown automata. This is evidenced by its superior performance over all baselines on both RE and DCF tasks, which are known to be solvable by pushdown automata. 
+However, as pushdown automata are theoretically incapable of resolving CS tasks, we observe that all approaches, including \method, perform poorly on CS tasks.
+Despite this limitation, \method demonstrates the ability to handle a subset of CS tasks, which we attribute to specific design enhancements such as the multi-head mechanism and the global reading capability.
+These features provide \method with stronger modeling capacity than traditional pushdown automata, enabling it to capture additional dependencies and complexities beyond the theoretical limits of pushdown automata.
+
+
+\section{Evaluation against General Natural Languages}
+\label{sec: Evaluation GNL}
+
+From the perspective of computational linguistics, natural languages are generally considered to belong to a class of languages that includes DCF \citep{gazdar1982generalized, chomsky1956three, shieber1985evidence}.
+Therefore, to thoroughly assess \method, we conduct further evaluations on general language modeling tasks.
+\ding{182} We examine the scalability of \method through scaling law studies, analyzing the effect caused by model size and training tokens.
+\ding{183} A \method with 360 million parameters is pretrained with nearly 980 billion tokens. We evaluate its performance on a variety of standard benchmarks, comparing it to models with similar or larger parameter scales.
+\ding{184} We provide additional empirical observations through ablation studies and deeper analysis (please refer to \S\ref{sec:analysis}).
+
+
+
+
+
+
+
+% 参数量、数据源、训练框架
+\paragraph{Experimental Setup}
+\label{sec:pretrainsetup}
+We follow the OLMo framework \citep{OLMOcode} to pretrain \method. 
+Our corpora comes from Dolma \citep{soldaini2024dolma} and Smoll \citep{allal2025smollm2}, which contain high-quality natural language, math, and Python code examples with diverse domains.
+We carry out data filtration, ultimately obtaining approximately 980 billion tokens. 
+To scale up model parameters, we adapt the Dolma v1.6-sample configuration in OLMo, using roughly 80 billion tokens for each variant model training. 
+For scaling up training tokens, we train \method with 360M parameters on a sampled subset of 200 billion tokens from pretraining corpora.
+
+\begin{figure}
+    \centering
+    \subfigure[Scaling law on model size]{
+        \includegraphics[width=0.32\linewidth]{scaling_comparison_model_1.png}
+        \label{fig:scalinglaw_model}
+    }
+    \subfigure[Scaling law on dataset size]{
+        \includegraphics[width=0.32\linewidth]{scaling_comparison_dataset_2.png}
+        \label{fig:scalinglaw_dataset}
+    }
+    \subfigure[Training loss dynamics]{
+        \includegraphics[width=0.3\linewidth]{training_loss_dynamics_zoom_annotated_small.png}
+        \label{fig:loss}
+    }
+    \caption{Scaling law and training loss dynamics across early steps of \method.}
+    \label{fig:scalinglaw}
+    \vspace{-15pt}
+\end{figure}
+
+
+\paragraph{Scaling Law of \textbfmethod}
+We train \method models with a range of parameter sizes (360M, 600M, 1.0B, 1.5B, and 7B) under the same training budget in terms of tokens. 
+The language modeling loss is tracked throughout the training process, and the scaling trends are depicted in Figure \ref{fig:scalinglaw}. 
+Our observations find that \method exhibits smoother convergence and attains lower final loss compared to standard Transformers of equivalent size. 
+Notably, even with 360M parameters, \method consistently demonstrates smaller loss, which underscores the significant contribution of the hidden state stack mechanism to improved generalization capabilities.
+Overall, \method aligns well with the predicted scaling trends and delivers superior performance.
+To analyze the optimization process, we compare training loss dynamics between \method and the standard Transformer in Figure \ref{fig:loss}. Detailed analysis is shown in \S\ref{sec:lossanalysis}.
+
+
+\begin{table}[t]
+\centering
+\caption{Evaluation results on natural language tasks.}
+\label{tab:main-eval}
+\begin{tabular}{l@{\hspace{-3pt}}c cccccc}
+\toprule
+& \method & SmolLM & SmolLM2 & Qwen2.5 & OLMo & TinyLLaMA \\
+\midrule
+Param. \# (B) & 0.36 & 0.36 & 0.36 & 0.5 & 1.1 & 1.1 \\
+Token \# (T)   & 1    & 0.6  & 4    & 18   & 2   & 3   \\
+\midrule
+HellaSwag         & 59.5 & 51.8 & 54.5 & 51.2 & 60.7 & 55.2 \\
+ARC               & 59.0 & 50.1 & 53.0 & 45.4 & 44.0  & 43.4 \\
+PIQA              & 71.7 & 71.6 & 71.7 & 69.9 & 75.2 & 72.9 \\
+MMLU              & 36.5 & 34.4 & 35.8 & 33.7 & 31.9 & 32.2 \\
+CommonsenseQA     & 37.1 & 35.3 & 38.0 & 31.6 & 40.3 & 37.0 \\
+TriviaQA          & 11.2 & 9.1  & 16.9 & 4.3  & 2.8  & 9.8   \\
+Winogrande        & 52.8 & 52.8 & 52.5 & 54.1 & 53.2  & 55.7 \\
+OpenBookQA        & 37.5 & 37.2 & 37.4 & 37.4 & 38.0  & 33.2  \\
+GSM8K (5-shot)    & 33.6 & 1.6  & 3.2  & 33.4 & 1.8  & 1.7  \\
+\midrule
+Average  & \textbf{44.3} & 38.2 & 40.3 & 40.1 & 38.7  & 37.9  \\
+\bottomrule
+\end{tabular}
+\vspace{-8pt}
+\end{table}
+
+\paragraph{Evaluation against \textbfmethod-360M}
+We pre-train \method-360M from scratch, and the detailed model configuration is shown in \S\ref{appendix:modelconfig}. 
+To assess the downstream capabilities, we evaluate \method-360M on a comprehensive suite of widely-used benchmarks, and details are shown in \S\ref{appendix:nlptask}.
+As listed in Table \ref{tab:main-eval}, \method-360M outperforms all baseline models, including those with significantly larger parameter sizes.
+Notably, it achieves substantial gains on GSM8K and ARC, highlighting its strength in reasoning tasks that require compositional generalization, recursion, or latent state management.
+Despite having fewer parameters, \method performs competitively on PIQA and CommonsenseQA, further indicating that the stack-augmented memory module improves representation capacity without compromising generalization.
+Overall, \method-360M achieves an average performance of 44.3 across 9 diverse tasks, exceeding comparable models in the table with only a fraction of the parameter size and dataset size.
+Our proposed \method enhances LLM's generalization ability, especially in scenarios with limited computation and parameter budgets.
+
+
+
+\section{Discussion}
+\label{sec:analysis}
+
+\paragraph{Ablations of Key Designs} 
+To assess the impact of the stack design in \method, we investigate two alternative configurations.
+\ding{182} We replace the stack with a queue, adopting a first-in-first-out storage structure, which we term QueueTrans.
+Apart from this modification, the queue mask performs similar functions to the stack mask in maintaining valid and activated elements.
+\ding{183} In this extreme setting, we modify the stack in \method to ``push-only'', where $a_t^{push}$ is fixed to 1.
+This configuration essentially disables pop and no-op operations.
+The multi-head stack and the low-rank compression are the other two crucial design elements in \method.
+To study their impact, we conduct ablation studies as follows:
+\ding{184} We disable the multi-head splitting, reverting it back to a single-head stack.
+\ding{185} We remove the down- and up-projections (low-rank mechanism) from the full stack.
+In total, we create four variants for ablation studies.
+
+
+
+\begin{table}[t]
+\centering
+\caption{Training and validation results of stack ablations ($\sim$20B tokens).
+}
+\label{tab:ablation_results}
+\begin{tabular}{lcccccc}
+\toprule
+Model & Train Loss $\downarrow$ & V2 Loss $\downarrow$ & V2 PPL $\downarrow$ & V3 Loss $\downarrow$ & V3 PPL $\downarrow$ \\
+\midrule
+Transformer & 2.411 & 3.518 & 34.38 & 3.195 & 25.33 \\
+\method           & 2.359 & 3.432 & 32.89 & 3.092 & 24.50 \\
+\midrule
+QueueTrans \scriptsize{(Stack$\rightarrow$Queue)}         & 2.679 & 3.679 & 35.14 & 3.211 & 25.97 \\
+Push-Only \scriptsize{(Fix $a_t^\text{push}=1$)} & 2.875 & 4.032 & 39.02 & 3.407 & 27.13 \\
+\midrule
+Single-Head \scriptsize{($H=1$)}       & 2.493 & 3.552  & 33.56 & 3.130 & 24.91  \\
+Full-Dimension \scriptsize{($H\cdot d_s=d$)}  & 2.370 & 3.457  & 33.05 & 3.105 & 24.73 \\
+\bottomrule
+\end{tabular}
+\vspace{-10pt}
+\end{table}
+
+We evaluate all the variants introduced above on the V2 and V3 validation sets \citep{hyperconnect}. Experimental details are provided in \S\ref{appendix:validation_sets}.
+The ablation results are presented in Table \ref{tab:ablation_results}.
+The QueueTrans variant exhibits notably higher perplexity and lower overall accuracy compared to \method, particularly on tasks involving hierarchical or recursive patterns.
+This outcome is consistent with our expectation that queue operations are inherently less effective at modeling nested dependencies and grammars.
+Similarly, the push-only variant performs poorly, with both training and validation losses significantly deteriorating.
+The absence of pop operations impairs its ability to dynamically manage and retrieve stored information, thereby reducing its overall effectiveness.
+Both single-head and full-dimensional variants are consistently outperformed by \method. The multi-head mechanism enhances flexibility by enabling parallel decomposition of stack streams, while the low-rank mechanism reduces computational costs without compromising much modeling capacity.
+
+
+
+
+
+
+\begin{figure}[t]
+    \centering
+    \subfigure[Stack head $H$]{
+        \includegraphics[width=0.32\linewidth]{head_ablation.pdf}
+        \label{fig:ablation:head}
+    }
+    \subfigure[Stack Dim $d_s$]{
+        \includegraphics[width=0.31\linewidth]{dim_ablation.pdf}
+        \label{fig:ablation:dim}
+    }
+    \subfigure[Stack size $S$]{
+        \includegraphics[width=0.32\linewidth]{stack_slots_ablation.pdf}
+        \label{fig:ablation:slots}
+    }
+    % \includegraphics[width=\linewidth]{stack_ablation.pdf}
+    \caption{Hyperparameters ablations of \method.}
+    \label{fig:stackablation}
+    \vspace{-12pt}
+\end{figure}
+
+\paragraph{Ablations of Hyperparametesr}
+In addition to the configuration of the standard Transformer layers, \method has three key hyperparameters -- the number of stack heads $H$, the dimension of each stack head $d_s$, and the stack size $S$.
+We perform grid search over reasonable ranges for these hyperparameters, training \method with 20 billion tokens.
+The curves of training loss and validation loss (evaluated on V2 \citep{hyperconnect}) are plotted in Figure \ref{fig:stackablation}.
+It is clear that $H$ is crucial for parallelism, but Figure \ref{fig:ablation:head} indicates that performance plateaus once $H$ surpasses a certain threshold.
+From Figure \ref{fig:ablation:dim}, we observe that setting $d_s$ within the range from 16 to 64 balances the computational cost and the model's expressiveness effectively.
+Similarly, Figure \ref{fig:ablation:slots} shows that increasing $S$ from 24 to 32 has nearly no impact on performance.
+Given that a larger $S$ leads to higher storage overhead, we make a trade-off and ultimately set $S$ to 24 during our evaluation.
+
+\paragraph{More Detailed Discussion}
+Due to the length constraints of the paper, we provide more discussions in the appendices. 
+For in-depth investigations of \method's training and inference efficiency, please refer to \S\ref{sec:efficiency}.
+In our implementation, we break the temporal dependencies to facilitate training parallelism of \method, as briefly introduced in \S\ref{sec:trainingparall}. We further discuss why this approximation works in \S\ref{sec:approximation}. 
+We adopt global reading rather than top peeking for \method, and we explain the rationale behind this design in \S\ref{sec:randomaccess}. 
+We provide visualizations of the stack action patterns across different tasks in \S\ref{sec:stack-patterns}, and analyze the training dynamics in \S\ref{sec:lossanalysis}.
+
+
+
+
+
+
+
+
+
+\section{Conclusion}
+
+Inspired by pushdown automata, we propose \method, a novel Transformer variant architecture integrating differentiable hidden state stacks in between Transformer layers.
+\method improves generalization in both formal language tasks and natural language modeling tasks. 
+In particular, our from-scratch pretrained \method-360M outperforms several larger open-source LLMs with 2–3$\times$ more parameters, showcasing its superior efficiency and reasoning capability. 
+
+
+
+
+\bibliographystyle{unsrtnat}
+\bibliography{reference}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+
+
+
+\section{Related Work}
+\label{appendix:related}
+
+\paragraph{Evolvement of Large Language Models}
+The success of LLMs is deeply rooted in the Transformer architecture \citep{vaswani2017attention} and its subsequent variations, which serve as the backbone for LLMs such as GPT \citep{radford2018improving, GPT-4, GPT-4o}, DeepSeek \citep{bi2024deepseek, liu2024deepseek}, LLaMA \citep{touvron2023llama}, and other prominent LLM series \citep{brown2020language}.
+Scaling laws \citep{kaplan2020scaling} have shown that increasing model parameter size leads to emergent capabilities, enabling LLMs to tackle increasingly complex tasks and exhibit surprising generalization behaviors.
+In addition to proprietary closed systems, open-source initiatives like OLMo \citep{groeneveld2024olmo} demonstrate the potential of community-scale pretraining using meticulously curated datasets such as Dolma \citep{soldaini2024dolma}. These efforts highlight how transparent methodologies can accelerate innovation, making powerful LLMs more accessible for academic research and industrial applications.
+Despite their widespread adoption, the Transformer architecture has inherent expressivity limitations \citep{hahn2020theoretical}.
+Although Transformers are theoretically Turing complete \citep{chomsky1956three}, they often underperform on tasks tied to formal languages within the Chomsky hierarchy.
+Recent studies \citep{deletang2022neural, dusell2024stack} have shown that standard Transformers struggle with recursive and hierarchical patterns across both synthetic and real-world tasks. 
+These limitations underscore the need for fundamental architectural enhancements to better model the Chomsky hierarchy, such as rich linguistic and algorithmic structures.
+
+
+Building on prior work and drawing inspiration from pushdown automata \citep{dusell2024stack, li2024Transformer, sartran2022Transformer}, we address these limitations by introducing hidden state stacks into the Transformer architecture.
+Our proposed method, \method, enhances the model capacity to represent hierarchical dependencies and recursive grammars, enabling it to learn Chomsky hierarchy grammars effectively.
+We believe that fostering transparent and open discussions around the underlying architectural challenges will accelerate the evolution of Transformer-based models and propel the development of large language models to new heights.
+
+
+\paragraph{Stack Augmentation}
+Equipping neural networks with external data structures, such as stacks, has been widely explored to enhance models' ability to recognize hierarchical and context-free languages.
+Although earlier studies primarily focused on recurrent neural networks \citep{joulin2015inferring, grefenstette2015learning}, recent efforts have adapted these thoughts to Transformer-based models \citep{dusell2024stack, li2024Transformer, sartran2022Transformer}.
+They aim to embed stack-like operations into Transformers to address their shortcomings in modeling the Chomsky hierarchy, particularly DCFs.
+For example, \cite{li2024Transformer} augment standard attention layers with differentiable stacks, enabling soft push/pop operations to model recursive structures. However, this comes with architectural trade-offs, where the stack control is tightly coupled with the attention mechanism, leading to increased entanglement and reduced modularity.
+Further advances, such as those in \cite{dusell2024stack}, embed stack operations directly within attention heads, providing stronger inductive biases.
+While these approaches better model Chomsky hierarchy grammars, their validation is largely limited to small-scale models and synthetic datasets.
+It raises questions about their scalability and generalization ability to large-scale tasks and larger Transformer-based models with millions or billions of parameters.
+In contrast, \method introduces a differentiable stack.
+Rather than tempering the attention mechanism, \method integrates stacks in between standard Transformer layers.
+This design decouples stack manipulation from attention computations, enabling seamless integration with pretrained Transformer models while preserving compatibility across architectures of varying sizes (ranging from 0.36B to 7B parameters).
+By focusing on hidden states, \method maintains flexibility and scalability, addressing broader linguistic and algorithmic challenges without compromising the core principles of the Transformer architecture.
+
+
+
+\section{Discussion (Cont.)}
+
+Following \S\ref{sec:analysis}, we provide some more discussions in this section.
+
+
+\subsection{Training and Inference Efficiency}
+\label{sec:efficiency}
+
+\begin{table}[t]
+\centering
+\caption{Training and inference efficiency, including time cost and GPU memory usage.}
+\label{tab:efficiency}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+\multirow{2}{*}{Model Variant} &  \multicolumn{2}{c}{Time Cost} && \multirow{2}{*}{\makecell{Peak GPU\\Memory Usage}}  \\
+\cmidrule{2-3}
+& Training & Inference &  \\
+\midrule
+Transformer\tnote{*}   &  $\times$1.00 & $\times$1.00 && $\times$1.00 \\
+\method  & $\times$1.16 & $\times$1.09 && $\times$1.12 \\
+\midrule
+Single-Head Stack  & $\times$1.03 & $\times$1.04 && $\times$1.00 \\
+Full-Dimensional Stack   & $\times$3.78 & $\times$3.30 && $\times$1.73 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[*] All values represent multiples of results of the baseline Transformer. Constrained by further engineering implementation (which we are actively working on), we conducted evaluations without enabling various cache or optimization mechanisms.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+
+
+Considering that the training and inference efficiency is an important factor for model applications. 
+In this section, we investigate the training and inference efficiency of \method compared to the standard Transformer. 
+To keep a fair comparison, all comparisons are conducted on the same hardware setup.
+We measure both training and inference time over 100 consecutive steps under identical hyperparameter and batch size configurations.
+To explore the design trade-offs, we also compare several \method variants, including single-head stack and full-dimensional stack as described in \S\ref{sec:analysis}.
+As shown in Table \ref{tab:efficiency}, despite incorporating differentiable stack modules, \method achieves competitive training and inference efficiency. 
+Concretely, it introduces only marginal overhead (around 10\%) compared to the standard Transformer while yielding significant performance improvements.
+Besides, the memory usage increase is moderate, well within the typical consumption range of large-scale LLM.
+This suggests that \method offers a practical and scalable approach, and its stack mechanism can be integrated into existing Transformer without compromising deployment efficiency.
+
+
+
+
+
+\subsection{Stack Action Patterns across Layers and Tasks}
+\label{sec:stack-patterns}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{stack_pattern.pdf}
+    \caption{Average probabilities of three operations across the network depth for the two-digit addition task and the two-digit multiplication task.}
+    \label{fig:pattern}
+\end{figure}
+
+\method introduces layer-wise stack modules that manipulate memory using three soft actions: push, pop, and no-op. 
+Since stack dynamics play a central role in the model’s expressiveness, we conduct an in-depth analysis of the stack action patterns across layers and downstream tasks.
+We select two arithmetic tasks from our synthetic benchmark suite: the two-digit addition task and the two-digit multiplication task. Although both tasks involve structured numerical reasoning, multiplication generally requires deeper or more nested intermediate steps than addition. Our \method-360M achieves 100\% accuracy on both tasks, indicating the performance of our model on these basic arithmetic questions. 
+For every layer and timestep, we compute the average action probabilities of the three operations for each Transformer layer in \method and visualize their trends across the network depth, as shown in Figure \ref{fig:pattern}.
+
+The results reveal a consistent action distribution pattern on both tasks: earlier layers predominantly favor push operations, while later layers exhibit an increased use of pop, with no-op remaining relatively stable throughout. This trend suggests that \method automatically learns to incrementally store information during lower layers and retrieve it in upper layers. The intuitive behavior mirrors how hierarchical or recursive structures are processed.
+
+Figure \ref{fig:pattern} further shows that multiplication elicits markedly more push operations in middle layers and deferred pop activity in higher layers, reflecting the deeper computation graph required by the task. 
+In contrast, addition induces a flatter push/pop pattern distributed more evenly across layers, consistent with its shallower reasoning structure.
+These findings confirm that \method learns to adapt memory access patterns dynamically according to task complexity, and that its stack behavior is both interpretable and task-sensitive. 
+
+
+
+
+
+\subsection{Approximations for Training Parallelism}
+\label{sec:approximation}
+
+
+In our implementation, we introduce necessary approximations to maintain training parallelism while preserving model performance, as detailed in \S\ref{sec:trainingparall}. 
+Temporal dependencies among hidden states are a fundamental aspect of the Transformer's processing pipeline. 
+Let $\mathbf{h}_{t,i} \in \mathbb{R}^d$ represent the hidden state at layer $i$ for token $t$, where the ideal processing order for our stack would follow the complete sequence:
+\begin{equation}
+    [\mathbf{h}_{t_0,0}, \mathbf{h}_{t_0,1}, \ldots, \mathbf{h}_{t_0,L}, \mathbf{h}_{t_1,0}, \ldots],
+\end{equation}
+with $L$ denoting the total number of layers. 
+However, to enable practical training parallelism, we introduce a controlled truncation between $\mathbf{h}_{t,L}$ and $\mathbf{h}_{t+1,0}$. 
+This approximation allows us to compute token losses for all elements in a sequence simultaneously, which would otherwise be computationally prohibitive.
+
+The decision to break these temporal dependencies is guided by two key considerations. First, the self-attention mechanism inherently captures cross-token relationships, which can partially compensate for the truncation. 
+Second, the stack mechanism introduced in our model complements the attention layers by retaining sequential dependencies through external memory operations. 
+Empirical evidence from prior work \citep{think2talk} supports this design, showing that those intermediate-layer hidden states for subsequent tokens effectively preserve information from earlier tokens.
+Overall, this approximation achieves an optimal trade-off between computational efficiency and model performance, enabling scalable and parallelizable training while maintaining our designed stack mechanism.
+
+
+\subsection{Global Reading Capability}
+\label{sec:randomaccess}
+
+Traditional stacks only permit access to the top element. However, in neural network modeling, such a restriction is unnecessary since tensor vectors can be efficiently accessed through operations like matrix multiplication. To enhance the stack’s representational ability, our differential stack eliminates this constraint by introducing global reading capabilities and enabling full random access.  
+
+Furthermore, we find that enforcing a strict top-only access during training leads to unstable and suboptimal model performance. We attribute this to the frequent stack operations in neural networks: limiting access to the top element disrupts gradient flow and reduces parameter learning efficiency. By relaxing this constraint and enabling global read operations, our differential stack achieves greater representational ability and improved adaptability across diverse tasks.
+
+
+\subsection{Training Loss Dynamics} 
+\label{sec:lossanalysis}
+To analyze the optimization process, we conduct a comparative analysis of training loss dynamics between \method and the standard Transformer. The training curves are presented in Figure \ref{fig:loss}.
+One may find out that \method exhibits a slightly slower decrease in loss during the very early training stages compared to the standard Transformer.
+We attribute this behavior to the additional learning complexity introduced by the hidden state stack, where \method must learn when and how to carry out stack operations.
+As training progresses, however, \method not only catches up but eventually surpasses the standard Transformer in convergence speed.
+Once the stack operation distribution stabilizes, \method begins to leverage the stack more effectively, leading to a steeper decline in loss and an overall lower convergence plateau.
+This phenomenon shows that \method, while requiring a slightly longer warm-up phase, ultimately achieves greater learning efficiency and a superior asymptotic performance ceiling compared to the standard Transformer. 
+
+
+\section{Limitations}
+\label{sec:limitation}
+
+While \method demonstrates strong performance across a variety of tasks, there are several limitations to our work that we aim to address.
+
+
+\begin{table}[t]
+\centering
+\caption{Formal language task descriptions and input-output examples.}
+\label{tab:formal_tasks}
+\begin{tabular}{ll}
+\toprule
+\textbf{Task Name} & \textbf{Description} \\
+\midrule
+\multicolumn{2}{l}{\textit{Regular (RE) Tasks}} \\
+Even Pairs         & Check if the count of \texttt{ab}/\texttt{ba} pairs is even. \\
+Parity Check       & Check if the count of \texttt{b} is even. \\
+Cycle Navigation   & Navigate movements on a modulo-5 cycle. \\
+\midrule
+\multicolumn{2}{l}{\textit{Deterministic Context-Free (DCF) Tasks}} \\
+Stack Manipulation & Perform stack operations and return the final state. \\
+Reverse String     & Reverse the input string using a stack. \\
+Modular Arithmetic & Evaluate nested arithmetic expressions modulo 5. \\
+Solve Equation     & Find a variable satisfying a modular equation. \\
+\midrule
+\multicolumn{2}{l}{\textit{Context-Sensitive (CS) Tasks}} \\
+Binary Addition    & Compute binary addition of two numbers. \\
+Binary Multiplication & Compute binary multiplication. \\
+Compute Sqrt       & Compute the integer square root of a binary number. \\
+Bucket Sort        & Sort a sequence over a fixed alphabet. \\
+Duplicate String   & Output the string concatenated with itself. \\
+Missing Duplicate  & Find the missing character in a duplicated string. \\
+Odds First         & Interleave odd and even indices of a sequence. \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lll}
+\toprule
+\textbf{Task Name} & \textbf{Input Example} & \textbf{Output Example} \\
+\midrule
+\multicolumn{3}{l}{\textit{Regular (RE) Tasks}} \\
+Even Pairs         & \texttt{aabba}         & True \\
+Parity Check       & \texttt{aaabba}        & True \\
+Cycle Navigation   & \texttt{011210}        & 2 \\
+\midrule
+\multicolumn{3}{l}{\textit{Deterministic Context-Free (DCF) Tasks}} \\
+Stack Manipulation & \texttt{abbaa POP PUSH a POP} & \texttt{abba} \\
+Reverse String     & \texttt{aabba}         & \texttt{abbaa} \\
+Modular Arithmetic & $-(1 - 2) \cdot (4 - 3 \cdot (-2))$ & 0 \\
+Solve Equation     & $-(z - 2) \cdot (4 - 3 \cdot (-2)) = 0$ & 1 \\
+\midrule
+\multicolumn{3}{l}{\textit{Context-Sensitive (CS) Tasks}} \\
+Binary Addition    & \texttt{10010 + 101}   & \texttt{10111} \\
+Binary Multiplication & \texttt{10010 $\times$ 101} & \texttt{1001000} \\
+Compute Sqrt       & \texttt{101001}        & \texttt{101} \\
+Bucket Sort        & \texttt{421302214}     & \texttt{011222344} \\
+Duplicate String   & \texttt{abaab}         & \texttt{abaababaab} \\
+Missing Duplicate  & \texttt{ab\_aba}       & \texttt{a} \\
+Odds First         & \texttt{aaabaa}        & \texttt{aaaaba} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Limitations of Model Size and Dataset Size}  
+Constrained by computational resources, we limit our final pre-trained model to 360M parameters and use approximately 1 trillion training tokens. 
+Although the results show competitive performance, the scaling law discussed in \S\ref{sec: Evaluation GNL} suggests that larger models and datasets could further amplify the strengths of \method. 
+Particularly, scaling up the number of model parameters and training tokens may enhance its ability to tackle more complex tasks. 
+This limitation highlights the importance of access to large-scale computing infrastructure for future research. 
+We hope to leverage the power of the open-source community to validate this new architecture.
+
+
+\paragraph{Necessary Approximation in Design}  
+To achieve training parallelism, we introduce controlled approximations in the sequence processing pipeline, as detailed in \S\ref{sec:trainingparall}. 
+Specifically, the truncation of temporal dependencies between tokens facilitates scalable training but may reduce the model’s ability to fully exploit fine-grained sequential patterns. 
+While the self-attention mechanism and stack-based memory mitigate this limitation, the truncation approximation may still pose risks, especially in tasks requiring deep inter-token dependencies. 
+We plan to explore more robust and efficient settings in future work.
+
+\section{Formal Language Task Details}
+\label{appendix:formal}
+We follow the experimental settings of \citet{deletang2022neural}. Table \ref{tab:formal_tasks} presents an overview of the formal language tasks and their complexity level within the Chomsky hierarchy.
+These tasks assess models' ability to learn underlying compositional rules of formal languages and generalize to input lengths beyond those seen during training. 
+The three task groups are categorized by the Chomsky hierarchy type, including RE (type-3), DCF (type-2), and CS (type-1). 
+The classification adheres to formal automata theory, associating the three tasks with finite-state automata, pushdown automata, and linear-bounded automata, respectively. 
+Please refer to Table \ref{tab:formal_tasks} in \S\ref{appendix:formal} for definitions and examples of these tasks.
+Despite the presence of classification tasks, all tasks are formulated as sequence mapping problems. In this setup, the model takes an input sequence and decodes it into an output sequence.
+\method is trained on sequences with input length uniformly sampled from 1 to 40 tokens.
+At test time, we evaluate \method on sequences with significantly longer lengths up to 500 tokens, thereby measuring its length generalization. 
+Following the same procedure as \cite{deletang2022neural}, token-level accuracy is used as the evaluation metric.
+We repeat each experimental configuration ten times and report the best accuracy achieved.
+
+
+
+\begin{table}[t]
+\centering
+\caption{Model configuration of \method-360M.}
+\label{tab:model_config}
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Vocabulary Size & 49152 \\
+Number of Attention Heads & 15 \\
+Number of Hidden Layers & 32 \\
+Hidden Size & 960 \\
+Intermediate Size (FFN) & 2560 \\
+Attention Dropout & 0.0 \\
+Activation Function & Silu \\
+\midrule
+Number of Stack Heads & 4 \\
+Stack Dimensionality & 16 \\
+Stack Size & 24 \\
+\midrule
+Maximum Position Embeddings & 4096 \\
+RoPE Scaling & None \\
+RoPE $\theta$ & 100000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Overview of V2 and V3 Validation Sets. Each validation set includes diverse text sources to ensure comprehensive evaluation.}
+\label{tab:validation_sets}
+\begin{tabular}{ll}
+\toprule
+\textbf{Validation Set} & \textbf{Datasets Included} \\
+\midrule
+\textbf{V2 Validation Sets} & \begin{tabular}[t]{@{}l@{}}
+v2-small-4chan-validation, v2-small-c4\_100\_domains-validation, \\
+v2-small-c4\_en-validation, v2-small-gab-validation, \\
+v2-small-ice-validation, v2-small-m2d2\_s2orc-validation, \\
+v2-small-m2d2\_wiki-validation, v2-small-manosphere-validation, \\
+v2-small-mc4\_en-validation, v2-small-pile-validation, \\
+v2-small-ptb-validation, v2-small-twitterAEE-validation, \\
+v2-small-wikitext\_103-validation \\
+\end{tabular} \\
+\midrule
+\textbf{V3 Validation Sets} & \begin{tabular}[t]{@{}l@{}}
+v3-small-c4\_en-validation, v3-small-dolma\_books-validation, \\
+v3-small-dolma\_common\_crawl-validation, \\
+v3-small-dolma\_pes2o-validation, v3-small-dolma\_reddit-validation, \\
+v3-small-dolma\_stack-validation, v3-small-dolma\_wiki-validation, \\
+v3-small-ice-validation, v3-small-m2d2\_s2orc-validation, \\
+v3-small-pile-validation, v3-small-wikitext\_103-validation \\
+\end{tabular} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{General Natural Language Task Details}
+\label{appendix:nlptask}
+
+To assess the downstream capabilities, we evaluate \method-360M on a comprehensive suite of widely-used benchmarks \citep{brown2020language, touvron2023llama, groeneveld2024olmo}, including those for common sense reasoning (\eg, HellaSwag, PIQA) \citep{HellaSwag, arc, mmlu, piqa, WinoGrande}, question answering (\eg, OpenBookQA) \citep{CommonsenseQA, TriviaQA, OpenbookQA}, and math-based reasoning (GSM8K) \citep{gsm8k} \footnote{The evaluation protocol strictly follows \cite{allal2025smollm2}, and we obtain nearly identical results to those reported in the paper.}.
+We compare \method-360M with other open-source models around 1B parameters, including SmolLM-360M \citep{allal2024SmolLM}, SmolLM2-360M \citep{allal2025smollm2}, Qwen2.5-0.5B \citep{yang2024qwen2}, OLMo-1B \citep{groeneveld2024olmo}, and TinyLLaMA-1B \citep{zhang2024tinyllama}. 
+We use the \textbf{lighteval} framework \citep{lightevalcode}, and for all applicable tasks, we adhere to zero-shot evaluation settings, unless otherwise specified.
+
+\section{Model Configuration of \textbfmethod-360M}
+\label{appendix:modelconfig}
+
+Table \ref{tab:model_config} shows the detailed model configuration of our \method-360M, which is inspired by the similar setting in \cite{allal2024SmolLM} and \cite{allal2025smollm2}. The stack-related setting is decided by a grid search in \S\ref{sec:analysis}.
+
+
+\section{Validation Dataset Details for General Language Modeling}
+\label{appendix:validation_sets}
+
+Following the method of \cite{hyperconnect}, we evaluate all variants on the \textbf{V2 Validation Sets} and \textbf{V3 Validation Sets} curated within the OLMO framework. 
+The specific datasets for V2 and V3 validation \citep{hyperconnect} are shown in Table \ref{tab:validation_sets}.
+
+
+
+\newpage
+\clearpage
+
+
+\end{document}

@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Stack_Structure",
+        "type": "presentation.normal",
+        "video": "StackMechanicsScene_0000_Stack_Structure.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "75",
+        "duration": "5.000000",
+        "avg_frame_rate": "15/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "Push_Operation",
+        "type": "presentation.normal",
+        "video": "StackMechanicsScene_0001_Push_Operation.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "63",
+        "duration": "4.200000",
+        "avg_frame_rate": "15/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "Pop_Operation",
+        "type": "presentation.normal",
+        "video": "StackMechanicsScene_0002_Pop_Operation.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "61",
+        "duration": "4.066667",
+        "avg_frame_rate": "15/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    },
+    {
+        "name": "Differentiable_Stack",
+        "type": "presentation.normal",
+        "video": "StackMechanicsScene_0003_Differentiable_Stack.mp4",
+        "width": 854,
+        "height": 480,
+        "nb_frames": "112",
+        "duration": "7.466667",
+        "avg_frame_rate": "15/1",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p"
+    }
+]

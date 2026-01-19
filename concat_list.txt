@@ -1,0 +1,7 @@
+file 'media/videos/s01_intro/480p15/IntroScene.mp4'
+file 'media/videos/s02_motivation/480p15/MotivationScene.mp4'
+file 'media/videos/s03_stack_mechanics/480p15/StackMechanicsScene.mp4'
+file 'media/videos/s04_derivation/480p15/DerivationScene.mp4'
+file 'media/videos/s05_experiments/480p15/ExperimentsScene.mp4'
+file 'media/videos/s06_code/480p15/CodeScene.mp4'
+file 'media/videos/s07_conclusion/480p15/ConclusionScene.mp4'
