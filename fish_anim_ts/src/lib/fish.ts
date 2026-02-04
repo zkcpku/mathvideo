@@ -5,8 +5,12 @@ type JumpState = 'idle' | 'charging' | 'jumping' | 'landing';
 export class Fish {
   pos: Vec2;
   scale: number;
-  bodyColor = 'rgba(0, 255, 210, 1)';
-  leafColor = 'rgba(0, 220, 100, 1)';
+  
+  // Updated colors to match the image gradient
+  bodyColorInner = '#00FFF0'; // Bright Cyan center
+  bodyColorOuter = '#00C0C0'; // Darker Cyan edge
+  leafColorStart = '#40FF80'; // Bright Green tip
+  leafColorEnd = '#00A060';   // Dark Green base
 
   state: JumpState = 'idle';
   stateTime = 0;
@@ -150,13 +154,15 @@ export class Fish {
 
     const renderY = this.pos.y - this.jumpHeight;
 
-    ctx.shadowBlur = 20 * this.scale;
-    ctx.shadowColor = this.bodyColor;
+    // Outer glow for that "spirit" look
+    ctx.shadowBlur = 30 * this.scale;
+    ctx.shadowColor = this.bodyColorInner;
 
     if (this.jumpHeight > 5) {
       this.drawShadow(ctx);
     }
 
+    // Draw order: Ears (behind) -> Body -> Eyes
     this.drawEars(ctx, renderY);
     this.drawBody(ctx, renderY);
     this.drawEyes(ctx, renderY);
@@ -180,8 +186,8 @@ export class Fish {
   }
 
   private drawBody(ctx: CanvasRenderingContext2D, renderY: number): void {
-    const baseWidth = 50 * this.scale;
-    const baseHeight = 60 * this.scale;
+    const baseWidth = 60 * this.scale;
+    const baseHeight = 55 * this.scale;
 
     const width = baseWidth * this.stretchX;
     const height = baseHeight * this.stretchY;
@@ -189,61 +195,124 @@ export class Fish {
     ctx.save();
     ctx.translate(this.pos.x, renderY);
 
-    ctx.beginPath();
-    ctx.moveTo(0, -height * 0.6);
+    // Create radial gradient for the "jelly" look
+    const gradient = ctx.createRadialGradient(
+      0, -height * 0.1, 0, // Light source slightly up
+      0, 0, width * 1.2    // Outer radius
+    );
+    gradient.addColorStop(0, this.bodyColorInner);
+    gradient.addColorStop(0.8, this.bodyColorOuter);
+    gradient.addColorStop(1, 'rgba(0, 192, 192, 0.8)'); // Translucent edge
 
+    ctx.beginPath();
+    
+    // Top point (connection to stem)
+    // Lowered slightly to allow for a much flatter, rounder top dome
+    ctx.moveTo(0, -height * 0.7);
+
+    // Right side - SUPER ROUND
     ctx.bezierCurveTo(
-      width * 0.8, -height * 0.5,
-      width * 0.9, height * 0.1,
-      width * 0.3, height * 0.4
+      width * 0.6, -height * 0.7,  // CP1: Horizontal tangent at top (creates dome)
+      width * 1.1, -height * 0.2,  // CP2: Wide middle
+      width * 1.0, height * 0.4    // End: Lower flank
     );
 
-    ctx.quadraticCurveTo(0, height * 0.5, -width * 0.3, height * 0.4);
-
+    // Bottom - continuous smooth bowl
     ctx.bezierCurveTo(
-      -width * 0.9, height * 0.1,
-      -width * 0.8, -height * 0.5,
-      0, -height * 0.6
+      width * 0.95, height * 0.8,  // CP1: Round bottom corner
+      -width * 0.95, height * 0.8, // CP2: Mirror
+      -width * 1.0, height * 0.4   // End: Mirror
+    );
+
+    // Left side - mirror of right
+    ctx.bezierCurveTo(
+      -width * 1.1, -height * 0.2,
+      -width * 0.6, -height * 0.7,
+      0, -height * 0.7
     );
 
     ctx.closePath();
 
-    ctx.fillStyle = this.bodyColor;
+    ctx.fillStyle = gradient;
     ctx.fill();
-    ctx.lineWidth = 2 * this.scale;
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+
+    // Subtle rim light
+    ctx.lineWidth = 3 * this.scale;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
     ctx.stroke();
 
     ctx.restore();
   }
 
   private drawEars(ctx: CanvasRenderingContext2D, renderY: number): void {
-    const leafLength = 55 * this.scale;
-    const leafWidth = 25 * this.scale;
+    const leafLength = 60 * this.scale;
+    const leafWidth = 35 * this.scale;
 
-    const earBaseY = renderY - 50 * this.scale * this.stretchY;
+    // Stem connects exactly at the top point of the body (0.7 factor matches drawBody)
+    const stemY = renderY - 55 * this.scale * 0.7 * this.stretchY;
 
     for (const side of [1, -1]) {
       ctx.save();
+      ctx.translate(this.pos.x, stemY);
 
-      const earX = this.pos.x + side * 15 * this.scale * this.stretchX;
-      ctx.translate(earX, earBaseY);
-
+      // Wiggle effect
       const wiggle = Math.sin(this.earWiggle + side * 0.5) * 0.08;
       const moveWiggle = this.state === 'jumping' ? Math.sin(this.stateTime * 25) * 0.15 : 0;
-      const angle = -Math.PI / 2 + side * 0.35 + wiggle + moveWiggle;
-
+      
+      // Symmetrical rotation: +angle for Right (1), -angle for Left (-1)
+      // 0.6 radians is about 35 degrees tilt from vertical
+      const angle = side * 0.6 + wiggle + moveWiggle;
       ctx.rotate(angle);
 
+      // Leaf gradient
+      // Gradient runs from base (0,0) to tip (0, -leafLength)
+      const gradient = ctx.createLinearGradient(0, 0, 0, -leafLength);
+      gradient.addColorStop(0, this.leafColorEnd);   // Darker at base
+      gradient.addColorStop(1, this.leafColorStart); // Brighter at tip
+
+      // Draw leaf shape pointing UP
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(leafWidth * 0.6, leafLength * 0.4, 0, leafLength);
-      ctx.quadraticCurveTo(-leafWidth * 0.6, leafLength * 0.4, 0, 0);
+      
+      // Right curve of the leaf
+      ctx.bezierCurveTo(
+        leafWidth * 0.6, -leafLength * 0.3, // CP1: Wide base
+        0, -leafLength,                     // CP2: Tip
+        0, -leafLength                      // End: Tip
+      );
+      
+      // Left curve of the leaf
+      ctx.bezierCurveTo(
+        -leafWidth * 0.6, -leafLength * 0.3, // CP1: Wide base
+        0, 0,                                // CP2: Base
+        0, 0                                 // End: Base
+      );
 
-      ctx.fillStyle = this.leafColor;
+      ctx.fillStyle = gradient;
       ctx.fill();
+
+      // Leaf vein (center line)
+      ctx.beginPath();
+      ctx.moveTo(0, -5 * this.scale);
+      ctx.lineTo(0, -leafLength * 0.7);
       ctx.lineWidth = 2 * this.scale;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.stroke();
+      
+      // Rim light for leaf
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(
+        leafWidth * 0.6, -leafLength * 0.3,
+        0, -leafLength,
+        0, -leafLength
+      );
+      ctx.bezierCurveTo(
+        -leafWidth * 0.6, -leafLength * 0.3,
+        0, 0,
+        0, 0
+      );
+      ctx.lineWidth = 1.5 * this.scale;
       ctx.stroke();
 
       ctx.restore();
@@ -251,42 +320,65 @@ export class Fish {
   }
 
   private drawEyes(ctx: CanvasRenderingContext2D, renderY: number): void {
-    const eyeSize = 18 * this.scale;
-    const pupilSize = 8 * this.scale;
-    const eyeSpacing = 22 * this.scale * this.stretchX;
-    const eyeY = renderY - 15 * this.scale * this.stretchY;
+    const eyeSize = 20 * this.scale; // Larger eyes
+    const pupilSize = 11 * this.scale;
+    const eyeSpacing = 24 * this.scale * this.stretchX;
+    // Lowered eye position significantly
+    const eyeY = renderY + 10 * this.scale * this.stretchY;
 
     for (const side of [1, -1]) {
       const eyeX = this.pos.x + side * eyeSpacing;
 
+      // Sclera
       ctx.beginPath();
       ctx.ellipse(
         eyeX, eyeY,
         eyeSize * this.stretchX,
-        eyeSize * this.stretchY,
-        0, 0, Math.PI * 2
-      );
-      ctx.fillStyle = 'white';
-      ctx.fill();
-
-      const lookOffset = 4 * this.scale;
-      const pupilX = eyeX + Math.cos(this.facingAngle) * lookOffset;
-      const pupilY = eyeY + Math.sin(this.facingAngle) * lookOffset;
-
-      ctx.beginPath();
-      ctx.arc(pupilX, pupilY, pupilSize, 0, Math.PI * 2);
-      ctx.fillStyle = 'black';
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(
-        pupilX - pupilSize * 0.3,
-        pupilY - pupilSize * 0.3,
-        pupilSize * 0.35,
+        eyeSize * this.stretchY * 1.05, // Slightly tall
+        side * -0.1, // Slight tilt inward
         0, Math.PI * 2
       );
       ctx.fillStyle = 'white';
       ctx.fill();
+
+      const lookOffset = 3 * this.scale;
+      const pupilX = eyeX + Math.cos(this.facingAngle) * lookOffset;
+      const pupilY = eyeY + Math.sin(this.facingAngle) * lookOffset;
+
+      // Pupil
+      ctx.beginPath();
+      ctx.ellipse(
+        pupilX, pupilY,
+        pupilSize, pupilSize * 1.1, // Tall pupil
+        0, 0, Math.PI * 2
+      );
+      ctx.fillStyle = 'black';
+      ctx.fill();
+
+      // Large main highlight (soft reflection)
+      ctx.globalAlpha = 0.9;
+      ctx.beginPath();
+      ctx.ellipse(
+        pupilX - pupilSize * 0.3,
+        pupilY - pupilSize * 0.3,
+        pupilSize * 0.4, pupilSize * 0.3,
+        Math.PI / 4, 0, Math.PI * 2
+      );
+      ctx.fillStyle = 'white';
+      ctx.fill();
+      
+      // Secondary smaller highlight
+      ctx.globalAlpha = 0.6;
+      ctx.beginPath();
+      ctx.arc(
+        pupilX + pupilSize * 0.4,
+        pupilY + pupilSize * 0.4,
+        pupilSize * 0.15,
+        0, Math.PI * 2
+      );
+      ctx.fillStyle = 'white';
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
     }
   }
 }

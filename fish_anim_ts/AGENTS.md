@@ -153,11 +153,31 @@ stateDiagram-v2
 
 ## Development Hints
 
+### Visual Style Control
+The sprite uses complex Canvas 2D paths to achieve its "jelly/spirit" look.
+
+#### Body Shape (Blob)
+- **Geometry**: The body is not a circle; it's a carefully tuned Bezier shape.
+- **Top**: Flat/Round dome (controlled by `bezierCurveTo` CP1/CP2 horizontal spread).
+- **Bottom**: Wide bowl shape.
+- **Gradient**: Uses `createRadialGradient` for a 3D inner-glow effect (lighter center, darker edge).
+
+#### Leaf Ears
+- **Connection**: Attached to a single "stem" point at the top center (`height * 0.7`).
+- **Symmetry**: Rotated symmetrically using `ctx.rotate(side * angle)`.
+- **Gradient**: Linear gradient from dark base to light tip.
+
+#### Eyes
+- **Position**: Low-set (bottom half of body) for "cute" proportion.
+- **Highlights**: Dual white highlights (main + secondary) on black pupil for glassy look.
+
 ### Changing Sprite Colors
-In `src/lib/fish.ts`:
+In `src/lib/fish.ts` (Class Properties):
 ```typescript
-bodyColor = 'rgba(0, 255, 210, 1)';  // Cyan body with glow
-leafColor = 'rgba(0, 220, 100, 1)';  // Green leaf ears
+bodyColorInner = '#00FFF0'; // Bright Cyan center
+bodyColorOuter = '#00C0C0'; // Darker Cyan edge
+leafColorStart = '#40FF80'; // Bright Green tip
+leafColorEnd = '#00A060';   // Dark Green base
 ```
 
 ### Adjusting Jump Parameters
@@ -181,6 +201,6 @@ this.stretchY = 1 - 0.2 * t;   // Vertical squash factor
 ### Adding Visual Effects
 The sprite uses canvas shadow for glow effect:
 ```typescript
-ctx.shadowBlur = 20 * this.scale;
-ctx.shadowColor = this.bodyColor;
+ctx.shadowBlur = 30 * this.scale;
+ctx.shadowColor = this.bodyColorInner;
 ```
