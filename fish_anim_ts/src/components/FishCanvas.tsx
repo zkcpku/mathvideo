@@ -30,7 +30,7 @@ export function FishCanvas() {
       }
 
       if (!fishRef.current) {
-        fishRef.current = new Fish(new Vec2(width / 2, height / 2));
+        fishRef.current = new Fish(new Vec2(width / 2, height / 2), 0.7);
       }
     };
 

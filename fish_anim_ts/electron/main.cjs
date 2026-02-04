@@ -79,9 +79,7 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
   
-  globalShortcut.register('Escape', () => {
-    app.quit();
-  });
+  // Removed Escape shortcut to prevent quitting
 });
 
 app.on('window-all-closed', () => {
