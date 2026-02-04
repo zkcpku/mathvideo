@@ -1,8 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_758763456_1663129439.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_450752908_223132457.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_2768676763_2632494244.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_3394500337_2150139623.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_885714300_2027432364.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_4149035065_1114718392.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s03_stack_mechanics/480p15/partial_movie_files/StackMechanicsScene/4240443197_2834709167_2558786032.mp4'

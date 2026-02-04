@@ -1,7 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s05_experiments/480p15/partial_movie_files/ExperimentsScene/4240443197_2268446272_4202107888.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s05_experiments/480p15/partial_movie_files/ExperimentsScene/4240443197_2681174813_223132457.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s05_experiments/480p15/partial_movie_files/ExperimentsScene/4240443197_2935971465_4065690776.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s05_experiments/480p15/partial_movie_files/ExperimentsScene/4240443197_595437525_2785373101.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s05_experiments/480p15/partial_movie_files/ExperimentsScene/4240443197_1082869243_494609342.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s05_experiments/480p15/partial_movie_files/ExperimentsScene/4240443197_2834709167_498802326.mp4'

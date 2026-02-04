@@ -1,8 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/2938917311_174424190_223132457.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/4240443197_3394500337_2491250848.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/4240443197_4103926280_1474744001.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/4240443197_2643190244_2875509829.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/4240443197_2834709167_3496055372.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/4240443197_1384719705_1640292690.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/test_latex/480p15/partial_movie_files/MathTest/4240443197_2834709167_3299217151.mp4'

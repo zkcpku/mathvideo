@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s02_motivation/480p15/partial_movie_files/MotivationScene/4240443197_2284914010_582472783.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s02_motivation/480p15/partial_movie_files/MotivationScene/4240443197_743257166_3727582869.mp4'
-file 'file:/Users/zhangkechi/Documents/GitHub/math_video/media/videos/s02_motivation/480p15/partial_movie_files/MotivationScene/4240443197_2834709167_3762995410.mp4'
