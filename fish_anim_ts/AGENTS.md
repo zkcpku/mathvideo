@@ -5,7 +5,7 @@ This file provides guidance to Verdent when working with code in this repository
 ## Table of Contents
 1. Installation & Setup
 2. Running the Application
-3. Fish Scale Control
+3. Sprite Scale Control
 4. Commands
 5. Architecture
 6. Key Rules & Constraints
@@ -36,14 +36,14 @@ If prompted about build scripts (esbuild, electron), approve them or add to `pac
 ```bash
 pnpm run dev
 ```
-Opens at http://localhost:5173 - fish follows mouse in browser window.
+Opens at http://localhost:5173 - sprite follows mouse in browser window.
 
 ### Desktop Overlay Mode (Electron)
 ```bash
 pnpm run electron:dev
 ```
 - Creates transparent, always-on-top, click-through overlay
-- Fish follows mouse cursor across entire screen (multi-display supported)
+- Sprite follows mouse cursor across entire screen (multi-display supported)
 - Press **ESC** to quit
 
 ### Build Commands
@@ -52,14 +52,14 @@ pnpm run build          # Build web version to dist/
 pnpm run electron:build # Build distributable desktop app
 ```
 
-## Fish Scale Control
+## Sprite Scale Control
 
-The fish size is controlled by the `scale` parameter in the Fish constructor.
+The sprite size is controlled by the `scale` parameter in the Fish constructor.
 
 ### Location
 `src/components/FishCanvas.tsx` - in the resize callback:
 ```typescript
-fishRef.current = new Fish(new Vec2(width / 2, height / 2), 0.5);
+fishRef.current = new Fish(new Vec2(width / 2, height / 2), 1.0);
 //                                                          ^^^
 //                                                        scale value
 ```
@@ -67,18 +67,18 @@ fishRef.current = new Fish(new Vec2(width / 2, height / 2), 0.5);
 ### Scale Values
 | Scale | Description |
 |-------|-------------|
-| 1.0   | Original size (large) |
-| 0.5   | Half size (default) |
-| 0.3   | Small |
-| 0.1   | Very small |
+| 1.0   | Default size |
+| 0.5   | Half size |
+| 1.5   | Larger |
+| 2.0   | Double size |
 
 ### What Gets Scaled
-- Spine link size (body length)
-- Body widths
-- Movement step size
-- Stroke/line width
-- All fin sizes (pectoral, ventral, caudal, dorsal)
-- Eye radius
+- Body size (width/height)
+- Jump height and distance
+- Ear (leaf) size
+- Eye size
+- Shadow size
+- Glow intensity
 
 ## Commands
 
@@ -98,10 +98,10 @@ fish_anim_ts/
 │   └── preload.cjs    # IPC bridge for mouse position
 ├── src/
 │   ├── lib/
-│   │   ├── vec2.ts    # 2D vector math
-│   │   ├── chain.ts   # Inverse kinematics (spine)
-│   │   ├── fish.ts    # Fish rendering logic
-│   │   └── spline.ts  # Catmull-Rom spline interpolation
+│   │   ├── vec2.ts    # 2D vector math (immutable)
+│   │   ├── chain.ts   # Inverse kinematics (unused, legacy)
+│   │   ├── fish.ts    # Sprite rendering & jump physics
+│   │   └── spline.ts  # Catmull-Rom spline interpolation (unused)
 │   ├── hooks/
 │   │   ├── useAnimationLoop.ts  # requestAnimationFrame wrapper
 │   │   └── useMousePosition.ts  # Mouse tracking hook (browser)
@@ -120,15 +120,27 @@ graph TD
     B -->|Electron| D[main.cjs → IPC → preload.cjs]
     C --> E[FishCanvas]
     D --> E
-    E --> F[Fish.resolve - update spine]
-    F --> G[Chain.resolve - inverse kinematics]
+    E --> F[Fish.resolve - update position & state]
+    F --> G[Jump State Machine]
     G --> H[Fish.render - draw to canvas]
+```
+
+### Sprite State Machine
+```mermaid
+stateDiagram-v2
+    [*] --> idle
+    idle --> charging: mouse far enough
+    charging --> jumping: charge complete
+    jumping --> landing: jump complete
+    landing --> idle: land complete
 ```
 
 ### Key Components
 - **Vec2**: Immutable 2D vector class with math operations
-- **Chain**: Inverse kinematics engine with angle constraints
-- **Fish**: Rendering class that draws body, fins, eyes using Canvas 2D API
+- **Fish**: Main sprite class with jump physics and rendering
+  - State machine: idle → charging → jumping → landing
+  - Squash & stretch animation
+  - Shadow rendering during jumps
 - **FishCanvas**: React component handling canvas setup, DPR scaling, animation loop
 
 ## Key Rules & Constraints
@@ -137,31 +149,38 @@ graph TD
 - **Click-through**: Electron window uses `setIgnoreMouseEvents(true)`
 - **Multi-display**: Mouse coordinates use `mainWindow.getBounds()` for correct offset
 - **DPR handling**: Canvas uses `setTransform(dpr, 0, 0, dpr, 0, 0)` for retina displays
-- **Slow mouse fix**: `resolve()` limits step size to prevent oscillation when mouse is close
+- **Immutable Vec2**: Always create new Vec2 instances, never mutate
 
 ## Development Hints
 
-### Changing Fish Colors
+### Changing Sprite Colors
 In `src/lib/fish.ts`:
 ```typescript
-bodyColor = 'rgb(58, 124, 165)';  // Main body
-finColor = 'rgb(129, 195, 215)';  // All fins
+bodyColor = 'rgba(0, 255, 210, 1)';  // Cyan body with glow
+leafColor = 'rgba(0, 220, 100, 1)';  // Green leaf ears
 ```
 
-### Adding New Fin Types
-1. Add draw method in `Fish` class following pattern of `drawPectoralFins`
-2. Call it in `render()` method in correct z-order
-
-### Adjusting Fish Movement Speed
-In `src/lib/fish.ts`, modify the step calculation:
+### Adjusting Jump Parameters
+In `src/lib/fish.ts` constructor or class properties:
 ```typescript
-const step = Math.min(16 * this.scale, dist);  // 16 is base speed
+baseJumpHeight = 60;    // How high it jumps (pixels * scale)
+baseJumpDistance = 100; // How far per jump (pixels * scale)
+jumpDuration = 0.35;    // Jump time in seconds
+chargeDuration = 0.12;  // Crouch time before jump
+landDuration = 0.08;    // Squash time on landing
+idleThreshold = 0.02;   // Delay before starting next jump
 ```
 
-### Changing Spine Flexibility
-In Fish constructor, modify angle constraint:
+### Adjusting Squash & Stretch
+In state handlers (`handleCharging`, `handleJumping`, `handleLanding`):
 ```typescript
-this.spine = new Chain(origin, 12, linkSize, Math.PI / 8);
-//                                           ^^^^^^^^^^
-//                                           smaller = more rigid
+this.stretchX = 1 + 0.25 * t;  // Horizontal stretch factor
+this.stretchY = 1 - 0.2 * t;   // Vertical squash factor
+```
+
+### Adding Visual Effects
+The sprite uses canvas shadow for glow effect:
+```typescript
+ctx.shadowBlur = 20 * this.scale;
+ctx.shadowColor = this.bodyColor;
 ```
