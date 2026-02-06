@@ -245,8 +245,8 @@ export class Fish {
   }
 
   private drawEars(ctx: CanvasRenderingContext2D, renderY: number): void {
-    const leafLength = 60 * this.scale;
-    const leafWidth = 35 * this.scale;
+    const leafLength = 90 * this.scale;
+    const leafWidth = 65 * this.scale;
 
     // Stem connects exactly at the top point of the body (0.7 factor matches drawBody)
     const stemY = renderY - 55 * this.scale * 0.7 * this.stretchY;
